@@ -1,0 +1,13 @@
+ru:
+  shared:
+    errors:
+     header: 'Обнаружены следующие ошибки:'
+    nav:
+      menu:
+        login: "Войти"
+        last_answers: "Последние ответы"
+        questions: "Вопросы"
+    footer:
+      application: "Онлайн-приложение QnA"
+      creator: "Разработанно Andrew Mark для"
+      thinknetica: "онлайн-школы Thinknetica"
