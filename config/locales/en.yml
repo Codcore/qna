@@ -22,6 +22,17 @@ en:
       table:
         header:
           question: "Questions"
+          actions: "Actions"
+    question:
+      edit: "Edit"
+      sure: "Are you sure?"
+    new:
+      header: "Create new question"
+    edit:
+      header: "Edit question"
+    show:
+      edit_button: "Edit"
+      delete_button: "Delete"
 
   helpers:
     submit:

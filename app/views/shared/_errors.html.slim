@@ -1,6 +1,6 @@
 - if resource.present? && resource.errors.present?
   = content_tag :div, class: 'alert alert-danger mt-4', data: { resource_id: resource.id } do
-    h4 = t '.header', count: resource.errors.count
+    h5 = t '.header', count: resource.errors.count
     hr
 
     ul

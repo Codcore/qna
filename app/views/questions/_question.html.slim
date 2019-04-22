@@ -1,0 +1,3 @@
+tr
+  th scope="row" = link_to question.title, question_path(question)
+  td = button_to t('.edit'), edit_question_path(question), class: 'btn btn-outline-secondary btn-sm', method: :get

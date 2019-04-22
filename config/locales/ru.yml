@@ -22,6 +22,17 @@ ru:
       table:
         header:
           question: "Последние вопросы"
+          actions: "Действия"
+    question:
+      edit: "Редактировать"
+      sure: "Вы уверены?"
+    new:
+      header: "Создать новый вопрос"
+    edit:
+      header: "Редактировать вопрос"
+    show:
+      edit_button: "Изменить"
+      delete_button: "Удалить"
 
   helpers:
     submit:

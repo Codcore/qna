@@ -2,7 +2,9 @@ table class ="table"
   thead
     tr
       th scope="col" = t '.table.header.question'
+      th scope="col" = t '.table.header.actions'
 
   tbody
-    - questions.each do |question|
-      th scope="row" = question.title
+
+  = render questions
+
