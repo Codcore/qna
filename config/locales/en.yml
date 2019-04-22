@@ -5,14 +5,28 @@ en:
         login: "Login"
         last_answers: "Last answers"
         questions: "Questions"
+
     footer:
       application: "QnA application"
       creator: "Developed by Andrew Mark for"
       thinknetica: "Thinknetica online-school"
+
     errors:
       header: "Errors found"
+
   questions:
     index:
       table:
         header:
           question: "Questions"
+
+  helpers:
+    submit:
+      question:
+        create: "Create a new question"
+        update: "Update question"
+
+    label:
+      question:
+        title: "Question title"
+        body: "Description"

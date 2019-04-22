@@ -2,17 +2,40 @@ ru:
   shared:
     errors:
      header: 'Обнаружены следующие ошибки:'
+
     nav:
       menu:
         login: "Войти"
         last_answers: "Последние ответы"
         questions: "Вопросы"
+
     footer:
       application: "Онлайн-приложение QnA"
       creator: "Разработанно Andrew Mark для"
       thinknetica: "онлайн-школы Thinknetica"
+
   questions:
     index:
       table:
         header:
           question: "Последние вопросы"
+
+  helpers:
+    submit:
+      question:
+        create: "Создать новый вопрос"
+        update: "Изменить вопрос"
+
+    label:
+      question:
+        title: "Вопрос"
+        body: "Описание"
+
+  activerecord:
+    models:
+      question: "Вопрос"
+
+    attributes:
+      question:
+        title: "Заголовок вопроса"
+        body: "Описание вопроса"
