@@ -57,7 +57,7 @@ RSpec.describe QuestionsController, type: :controller do
         expect { post :create, params: { question: attributes_for(:question, :invalid) } }.not_to change(Question, :count)
       end
 
-      it 'should re-render new view' do
+      it 'should redirect to the new view' do
         post :create, params: { question: attributes_for(:question, :invalid) }
         expect(response).to redirect_to(new_question_path)
       end
@@ -74,7 +74,7 @@ RSpec.describe QuestionsController, type: :controller do
         expect(question.body).to eq 'New body'
       end
 
-      it 'should redirect to updated question' do
+      it 'should redirect to the updated question' do
         patch :update, params: { id: question, question: attributes_for(:question) }
         expect(response).to redirect_to question
       end
