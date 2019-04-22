@@ -1,9 +1,7 @@
-= bootstrap_form_with model: question, local: true do |form|
-  = render 'shared/errors', resource: question
-  br
+br
 
-  = form.text_field :title
+h3 = t '.header'
 
-  = form.text_area :body
+hr
 
-  = form.submit
+= render 'form'

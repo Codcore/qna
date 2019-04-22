@@ -4,7 +4,7 @@ module QuestionsHelper
   end
 
   def validation_errors_message
-    html = content_tag :h2, t('shared.flash.validation_error.header')
+    html = content_tag :h5, t('shared.flash.validation_error.header')
     html += tag.hr
     html += tag.ul
     flash[:validation_error].split('|').each do |error|
