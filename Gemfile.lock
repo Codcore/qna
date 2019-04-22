@@ -54,6 +54,9 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
+    bootstrap_form (4.2.0)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
     builder (3.2.3)
     byebug (11.0.1)
     capybara (3.17.0)
@@ -90,6 +93,8 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    i18n-debug (1.2.0)
+      i18n (< 2)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -244,11 +249,13 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.0.0)
+  bootstrap_form (>= 4.2.0)
   byebug
   capybara (>= 2.15)
   coffee-rails (~> 4.2)
   decent_exposure (= 3.0.0)
   factory_bot_rails
+  i18n-debug
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
@@ -259,7 +266,6 @@ DEPENDENCIES
   rspec-rails (~> 3.8)
   sass-rails (~> 5.0)
   shoulda-matchers
-  slim
   slim-rails
   spring
   spring-watcher-listen (~> 2.0.0)
