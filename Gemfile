@@ -56,6 +56,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'i18n-debug'
+  gem 'rails-i18n', '~> 5.1'
 end
 
 group :test do

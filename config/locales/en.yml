@@ -13,6 +13,9 @@ en:
 
     errors:
       header: "Errors found"
+    flash:
+      validation_error:
+        header: "Errors found:"
 
   questions:
     index:

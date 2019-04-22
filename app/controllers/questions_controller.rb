@@ -6,6 +6,7 @@ class QuestionsController < ApplicationController
     if question.save
       redirect_to questions_path
     else
+      flash[:validation_error] = question.errors.full_messages.join('|')
       redirect_to action: :new
     end
   end
@@ -14,7 +15,8 @@ class QuestionsController < ApplicationController
     if question.update(question_params)
       redirect_to question
     else
-      redirect_to edit_question_path(question)
+      flash[:validation_error] = question.errors.full_messages.join('|')
+      redirect_to action: :edit
     end
   end
 
