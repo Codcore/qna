@@ -1,23 +1,14 @@
 class QuestionsController < ApplicationController
-
-  def index
-    @questions = Question.all
-  end
-
-  def show; end
-
-  def new; end
+  expose :question
+  expose :questions, ->{ Question.all }
 
   def create
-    @question = Question.create(question_params)
-    if @question.persisted?
-      redirect_to question
+    if question.save
+      redirect_to questions_path
     else
       redirect_to action: :new
     end
   end
-
-  def edit; end
 
   def update
     if question.update(question_params)
@@ -33,12 +24,6 @@ class QuestionsController < ApplicationController
   end
 
   private
-
-  def question
-    @question ||= params[:id] ? Question.find(params[:id]) : Question.new
-  end
-
-  helper_method :question
 
   def question_params
     params.require(:question).permit(:title, :body)
