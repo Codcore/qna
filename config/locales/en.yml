@@ -11,3 +11,8 @@ en:
       thinknetica: "Thinknetica online-school"
     errors:
       header: "Errors found"
+  questions:
+    index:
+      table:
+        header:
+          question: "Questions"
