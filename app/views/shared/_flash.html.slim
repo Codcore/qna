@@ -1,3 +1,25 @@
-- flash.each do |key, message|
-  div class="alert #{bootstrap_class_for_flash(key)} alert-dismissible fade show mt-3"
-    = raw message
+- if flash[:error]
+
+  div class="alert #{bootstrap_class_for_flash(:error)} alert-dismissible fade show mt-3"
+    = raw flash[:error]
+
+- if flash[:notice]
+
+  div class="alert #{bootstrap_class_for_flash(:notice)} alert-dismissible fade show mt-3"
+    = raw flash[:notice]
+
+- if flash[:alert]
+
+  div class="alert #{bootstrap_class_for_flash(:success)} alert-dismissible fade show mt-3"
+    = raw flash[:notice]
+
+- if flash[:success]
+
+  div class="alert #{bootstrap_class_for_flash(:success)} alert-dismissible fade show mt-3"
+    = raw flash[:success]
+
+- if flash[:validation_error]
+
+  div class="alert #{bootstrap_class_for_flash(:error)} alert-dismissible fade show mt-3"
+    = validation_errors_message
+

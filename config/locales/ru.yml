@@ -13,6 +13,9 @@ ru:
       application: "Онлайн-приложение QnA"
       creator: "Разработанно Andrew Mark для"
       thinknetica: "онлайн-школы Thinknetica"
+    flash:
+      validation_error:
+        header: "Обнаружены ошибки:"
 
   questions:
     index:
@@ -28,8 +31,8 @@ ru:
 
     label:
       question:
-        title: "Вопрос"
-        body: "Описание"
+        title: "Заголовок вопроса"
+        body: "Описание вопроса"
 
   activerecord:
     models:
