@@ -11,3 +11,8 @@ ru:
       application: "Онлайн-приложение QnA"
       creator: "Разработанно Andrew Mark для"
       thinknetica: "онлайн-школы Thinknetica"
+  questions:
+    index:
+      table:
+        header:
+          question: "Последние вопросы"
