@@ -26,6 +26,7 @@ en:
     question:
       edit: "Edit"
       sure: "Are you sure?"
+      delete: "Delete"
     new:
       header: "Create new question"
     edit:

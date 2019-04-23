@@ -26,6 +26,7 @@ ru:
     question:
       edit: "Редактировать"
       sure: "Вы уверены?"
+      delete: "Удалить"
     new:
       header: "Создать новый вопрос"
     edit:
