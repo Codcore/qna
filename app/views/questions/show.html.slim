@@ -1,9 +1,24 @@
-div class='card mt-3 mb-5'
+div class='card mt-3'
   div class='card-body'
     h4 class='card-title' = question.title
     hr
     p class='card-text' = question.body
   div class='card-header d-flex flex-row-reverse'
     ul class='nav nav-pills card-header-pills'
+      li class='nav-item' = link_to t('.add_answer'), new_question_answer_path(question), class: 'nav-link active'
       li class='nav-item' = link_to t('.edit_button'), edit_question_path(question), class: 'nav-link'
       li class='nav-item' = link_to t('.delete_button'), question_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
+br
+h5 class='text-muted' #{t('.answers_count', count: question.answers.count)}
+hr
+
+- question.answers.each do |answer|
+    / div class='col-5'
+    div class='card mt-2 mb-2'
+      div class='card-header text-muted' = answer.created_at.strftime('%B %e at %l:%M %p')
+      div class='card-body'
+        p class='card-text' = answer.body
+      div class='card-header d-flex flex-row-reverse'
+        ul class='nav nav-pills card-header-pills'
+          li class='nav-item' = link_to t('.edit_button'), edit_answer_path(answer), class: 'nav-link'
+          li class='nav-item' = link_to t('.delete_button'), answer_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'

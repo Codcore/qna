@@ -7,7 +7,13 @@ ru:
       menu:
         login: "Войти"
         last_answers: "Последние ответы"
-        questions: "Вопросы"
+
+        questions:
+          ask_question: "Задать вопрос"
+          my_questions: "Мои вопросы"
+
+        items:
+          questions: "Вопросы"
 
     footer:
       application: "Онлайн-приложение QnA"
@@ -23,17 +29,28 @@ ru:
         header:
           question: "Последние вопросы"
           actions: "Действия"
+
     question:
       edit: "Редактировать"
       sure: "Вы уверены?"
       delete: "Удалить"
+
     new:
-      header: "Создать новый вопрос"
+      header: "Задать новый вопрос"
+
     edit:
       header: "Редактировать вопрос"
+
     show:
       edit_button: "Изменить"
       delete_button: "Удалить"
+      add_answer: "Ответить"
+
+      answers_count:
+        few: "%{count} ответа"
+        many: "%{count} ответов"
+        one: "%{count} ответ"
+        other: "%{count} ответов"
 
   helpers:
     submit:
@@ -41,10 +58,17 @@ ru:
         create: "Создать новый вопрос"
         update: "Изменить вопрос"
 
+      answer:
+        create: "Добавить ответ"
+        update: "Изменить ответ"
+
     label:
       question:
         title: "Заголовок вопроса"
         body: "Описание вопроса"
+
+      answer:
+        body: "Текст ответа"
 
   activerecord:
     models:
@@ -54,3 +78,11 @@ ru:
       question:
         title: "Заголовок вопроса"
         body: "Описание вопроса"
+
+      answer:
+        body: "Текст ответа"
+  answers:
+    new:
+      header: "Новый ответ на вопрос"
+    edit:
+      header: "Изменить ответ на вопрос"

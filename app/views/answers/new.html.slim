@@ -1,0 +1,12 @@
+br
+
+h3 #{t('.header')} &laquo; #{@question.title} &raquo;
+
+hr
+
+= bootstrap_form_with model: [:question, answer], local: true do |form|
+  = render 'shared/errors', resource: answer
+
+  = form.text_area :body
+
+  = form.submit

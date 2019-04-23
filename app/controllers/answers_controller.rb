@@ -1,12 +1,13 @@
 class AnswersController < ApplicationController
   expose :answer
-  expose :question, -> { Question.find(params[:question_id]) }
+  expose :question, ->{ Question.find(params[:question_id]) }
 
   def create
     answer.question = question
     if answer.save
       redirect_to answer.question
     else
+      flash[:validation_error] = answer.errors.full_messages.join('|')
       redirect_to new_question_answer_path(answer.question)
     end
   end
@@ -15,6 +16,7 @@ class AnswersController < ApplicationController
     if answer.update(answer_params)
       redirect_to question_path(answer.question)
     else
+      flash[:validation_error] = answer.errors.full_messages.join('|')
       redirect_to edit_answer_path(answer)
     end
   end

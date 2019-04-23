@@ -4,7 +4,12 @@ en:
       menu:
         login: "Login"
         last_answers: "Last answers"
-        questions: "Questions"
+        questions:
+          ask_question: "Ask a question"
+          my_questions: "My questions"
+
+        items:
+          questions: "Questions"
 
     footer:
       application: "QnA application"
@@ -13,6 +18,7 @@ en:
 
     errors:
       header: "Errors found"
+
     flash:
       validation_error:
         header: "Errors found:"
@@ -23,17 +29,23 @@ en:
         header:
           question: "Questions"
           actions: "Actions"
+
     question:
       edit: "Edit"
       sure: "Are you sure?"
       delete: "Delete"
+
     new:
-      header: "Create new question"
+      header: "Ask a question"
+
     edit:
       header: "Edit question"
+
     show:
       edit_button: "Edit"
       delete_button: "Delete"
+      add_answer: "Post answer"
+      answers_count: "answers"
 
   helpers:
     submit:
@@ -41,7 +53,19 @@ en:
         create: "Create a new question"
         update: "Update question"
 
+      answer:
+        create: "Create a new answer"
+        update: "Update answer"
+
     label:
       question:
         title: "Question title"
         body: "Description"
+
+      answer:
+        body: "Answer text"
+  answers:
+    new:
+      header: "New answer for question"
+    edit:
+      header: "Edit answer for question"
