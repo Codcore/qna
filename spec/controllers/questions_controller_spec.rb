@@ -91,7 +91,7 @@ RSpec.describe QuestionsController, type: :controller do
         expect(question.body).to eq(old_question.body)
       end
 
-      it 'should re-render edit view' do
+      it 'should redirect to edit view' do
         expect(response).to redirect_to(edit_question_path(question))
       end
     end
