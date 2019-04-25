@@ -27,7 +27,7 @@ RSpec.describe AnswersController, type: :controller do
     context 'with invalid attributes' do
       it 'should should not save a new answer to the database' do
 
-        expect { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }}.not_to change(Answer, :count)
+        expect { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }}.not_to change(question.answers, :count)
       end
 
       it 'should redirect to the new question answer path' do
