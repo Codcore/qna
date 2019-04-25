@@ -10,6 +10,7 @@ en:
 
         items:
           questions: "Questions"
+        logout: "Logout"
 
     footer:
       application: "QnA application"
@@ -45,7 +46,23 @@ en:
       edit_button: "Edit"
       delete_button: "Delete"
       add_answer: "Post answer"
-      answers_count: "answers"
+
+      answers_count:
+        few: "%{count} ответа"
+        many: "%{count} ответов"
+        one: "%{count} ответ"
+        other: "%{count} ответов"
+
+    create:
+      flash_messages:
+        question:
+          created: "Your question is successfully created."
+
+  create:
+    flash_messages:
+      question:
+        created: "Ваш вопрос успешно создан"
+
 
   helpers:
     submit:
