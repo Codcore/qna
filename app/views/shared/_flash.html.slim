@@ -10,13 +10,14 @@
 
 - if flash[:alert]
 
-  div class="alert #{bootstrap_class_for_flash(:success)} alert-dismissible fade show mt-3"
-    = raw flash[:notice]
+  div class="alert #{bootstrap_class_for_flash(:alert)} alert-dismissible fade show mt-3"
+    = raw flash[:alert]
 
 - if flash[:success]
 
   div class="alert #{bootstrap_class_for_flash(:success)} alert-dismissible fade show mt-3"
     = raw flash[:success]
+
 
 - if flash[:validation_error]
 
