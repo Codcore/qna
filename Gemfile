@@ -40,6 +40,8 @@ gem 'decent_exposure', '3.0.0'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.0.0'
 gem 'bootstrap_form', '>= 4.2.0'
+gem 'devise'
+gem 'devise-i18n'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -65,6 +67,7 @@ group :test do
   gem 'webdrivers'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

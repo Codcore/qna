@@ -17,7 +17,7 @@ module Qna
     # the framework and any gems in your application.
     config.time_zone = 'Kyiv'
     config.i18n.available_locales = [:en, :ru]
-    config.i18n.default_locale = :ru
+    config.i18n.default_locale = :en
 
     config.generators do |g|
       g.test_framework :rspec,
