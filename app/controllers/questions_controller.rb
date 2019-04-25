@@ -1,9 +1,13 @@
 class QuestionsController < ApplicationController
+
+  before_action :authenticate_user!, except: [:index, :show]
+
   expose :question
   expose :questions, ->{ Question.all }
 
   def create
     if question.save
+      flash[:success] = t('.flash_messages.question.created')
       redirect_to questions_path
     else
       flash[:validation_error] = question.errors.full_messages.join('|')

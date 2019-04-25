@@ -14,6 +14,7 @@ ru:
 
         items:
           questions: "Вопросы"
+        logout: "Выйти"
 
     footer:
       application: "Онлайн-приложение QnA"
@@ -51,6 +52,11 @@ ru:
         many: "%{count} ответов"
         one: "%{count} ответ"
         other: "%{count} ответов"
+
+    create:
+      flash_messages:
+        question:
+          created: "Ваш вопрос успешно создан"
 
   helpers:
     submit:

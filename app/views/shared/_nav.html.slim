@@ -23,5 +23,9 @@ nav class="navbar navbar-expand-lg navbar-dark bg-dark"
       li class="nav-item"
         a class="nav-link" href="#" = t('.menu.last_answers')
 
+      - unless user_signed_in?
+        li class="nav-item"
+          a class="nav-link" href="#{new_user_session_path}" = t('.menu.login')
+      - else
       li class="nav-item"
-        a class="nav-link disabled" href="#" = t('.menu.login')
+        = link_to t('.menu.logout'), destroy_user_session_path, method: :delete, class: 'nav-link'
