@@ -22,3 +22,5 @@ hr
         ul class='nav nav-pills card-header-pills'
           li class='nav-item' = link_to t('.edit_button'), edit_answer_path(answer), class: 'nav-link'
           li class='nav-item' = link_to t('.delete_button'), answer_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
+
+= render template: 'answers/new'

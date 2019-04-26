@@ -30,10 +30,10 @@ RSpec.describe AnswersController, type: :controller do
         expect { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }}.not_to change(question.answers, :count)
       end
 
-      it 'should redirect to the new question answer path' do
+      it 'should redirect to the answer question path' do
         post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }
 
-        expect(response).to redirect_to new_question_answer_path(question)
+        expect(response).to redirect_to question_path(question)
       end
     end
   end
