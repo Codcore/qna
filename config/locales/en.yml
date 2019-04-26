@@ -48,10 +48,10 @@ en:
       add_answer: "Post answer"
 
       answers_count:
-        few: "%{count} ответа"
-        many: "%{count} ответов"
-        one: "%{count} ответ"
-        other: "%{count} ответов"
+        few: "%{count} answers"
+        many: "%{count} answers"
+        one: "%{count} answer"
+        other: "%{count} anwers"
 
     create:
       flash_messages:
@@ -81,6 +81,7 @@ en:
 
       answer:
         body: "Answer text"
+
   answers:
     new:
       header: "New answer for question"

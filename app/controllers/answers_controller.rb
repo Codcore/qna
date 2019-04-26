@@ -8,7 +8,7 @@ class AnswersController < ApplicationController
       redirect_to answer.question
     else
       flash[:validation_error] = answer.errors.full_messages.join('|')
-      redirect_to new_question_answer_path(answer.question)
+      redirect_to question_path(answer.question)
     end
   end
 
