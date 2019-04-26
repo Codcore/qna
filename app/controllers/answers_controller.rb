@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   expose :answer
-  expose :question, find: ->(id, scope){ scope.find(id) }
+  expose :question, find: ->(id=:question_id, scope){ scope.find(id) }
 
   def create
     answer.question = question
