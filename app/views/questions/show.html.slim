@@ -9,8 +9,9 @@ div class='card mt-3'
       li class='nav-item' = link_to t('.edit_button'), edit_question_path(question), class: 'nav-link'
       li class='nav-item' = link_to t('.delete_button'), question_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
 br
-h5 class='text-muted' #{t('.answers_count', count: question.answers.count)}
-hr
+- if question.answers.any?
+  h5 class='text-muted' #{t('.answers_count', count: question.answers.count)}
+  hr
 
 - question.answers.each do |answer|
     / div class='col-5'
@@ -21,6 +22,6 @@ hr
       div class='card-header d-flex flex-row-reverse'
         ul class='nav nav-pills card-header-pills'
           li class='nav-item' = link_to t('.edit_button'), edit_answer_path(answer), class: 'nav-link'
-          li class='nav-item' = link_to t('.delete_button'), answer_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
+          li class='nav-item' = link_to t('.delete_button'), answer_path(answer), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
 
 = render template: 'answers/new'
