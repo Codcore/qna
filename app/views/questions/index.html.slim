@@ -1,10 +1,11 @@
 table class ="table"
   thead
     tr
-      th scope="col" = t '.table.header.question'
-      th scope="col" = t '.table.header.actions'
+      th scope="col" class="text-center" = t '.table.header.question'
+      - if current_user.present?
+        th scope="col" class="text-center" colspan="2" = t '.table.header.actions'
 
   tbody
 
-  = render questions
+    = render questions
 
