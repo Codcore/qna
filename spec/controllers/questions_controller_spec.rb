@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:user) { create(:user) }
-  let(:question) { create(:question, user: user) }
+  let(:another_user) { create(:user) }
+
+  let!(:question) { create(:question, user: user) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 3) }
@@ -48,7 +50,7 @@ RSpec.describe QuestionsController, type: :controller do
       it 'should save a new question in the database' do
         expect { post :create, params: { question: attributes_for(:question) } }.to change(user.questions, :count).by(1)
       end
-      
+
       it 'should redirect to show view' do
         post :create, params: { question: attributes_for(:question) }
         expect(response).to redirect_to assigns(:question)
@@ -56,7 +58,6 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'with invalid attributes' do
-
       it 'should not save the question' do
         expect { post :create, params: { question: attributes_for(:question, :invalid) } }.not_to change(Question, :count)
       end
@@ -69,11 +70,12 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    before { login(user) }
 
     context 'with valid attributes' do
+      before { login(user) }
+      before { patch :update, params: { id: question, question: { title: 'New title', body: 'New body', user: user } } }
+
       it 'should change question attributes' do
-        patch :update, params: { id: question, question: { title: 'New title', body: 'New body' } }
         question.reload
 
         expect(question.title).to eq 'New title'
@@ -87,6 +89,7 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'with invalid attributes' do
+      before { login(user) }
       before { patch :update, params: { id: question, question: attributes_for(:question, :invalid) } }
 
       it 'should not change question' do
@@ -101,12 +104,28 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to redirect_to(edit_question_path(question))
       end
     end
+
+    context 'by non-author user' do
+
+      before { login(another_user) }
+
+      it 'should not save the question' do
+        expect { patch :update, params: { id: question, question: attributes_for(:question) } }.not_to change(Question, :count)
+      end
+
+      it 'should have status 401 Not authorized' do
+        patch :update, params: { id: question, question: attributes_for(:question) }
+
+        expect(response).to have_http_status(401)
+      end
+    end
   end
+
 
   describe 'DELETE #destroy' do
     before { login(user) }
 
-    let!(:question) { create(:question) }
+    let!(:question) { create(:question, user: user) }
 
     it 'should delete the question' do
       expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
@@ -116,5 +135,20 @@ RSpec.describe QuestionsController, type: :controller do
       delete :destroy, params: { id: question }
       expect(response).to redirect_to questions_path
     end
+
+    context 'by non-author user' do
+      before { login(another_user) }
+
+      it 'should not delete the question' do
+        expect { delete :destroy, params: { id: question } }.to_not change(Question, :count)
+      end
+
+      it 'should have status 401 Not authorized' do
+        patch :update, params: { id: question, question: attributes_for(:question) }
+
+        expect(response).to have_http_status(401)
+      end
+    end
   end
 end
+

@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_authorized, only: [:update, :destroy]
 
   expose :question
   expose :questions, ->{ Question.all }
@@ -32,6 +33,14 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def check_authorized
+    return render :show, status: :unauthorized unless authorized_user?
+  end
+
+  def authorized_user?
+    current_user == question.user
+  end
 
   def question_params
     params.require(:question).permit(:title, :body)
