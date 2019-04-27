@@ -20,12 +20,15 @@ nav class="navbar navbar-expand-lg navbar-dark bg-dark"
       li class="nav-item active"
         a class="nav-link" href="#"
 
-      li class="nav-item"
-        a class="nav-link" href="#" = t('.menu.last_answers')
-
       - unless user_signed_in?
+
         li class="nav-item"
-          a class="nav-link" href="#{new_user_session_path}" = t('.menu.login')
+          a class="nav-link active" href="#{new_user_registration_path}" = t('.menu.register')
+
+        li class="nav-item"
+          a class="nav-link active" href="#{new_user_session_path}" = t('.menu.login')
+
       - else
-      li class="nav-item"
-        = link_to t('.menu.logout'), destroy_user_session_path, method: :delete, class: 'nav-link'
+
+        li class="nav-item"
+          = link_to t('.menu.logout'), destroy_user_session_path, method: :delete, class: 'nav-link active'
