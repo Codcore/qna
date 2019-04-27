@@ -5,7 +5,6 @@ div class='card mt-3'
     p class='card-text' = question.body
   div class='card-header d-flex flex-row-reverse'
     ul class='nav nav-pills card-header-pills'
-      li class='nav-item' = link_to t('.add_answer'), new_question_answer_path(question), class: 'nav-link active'
       li class='nav-item' = link_to t('.edit_button'), edit_question_path(question), class: 'nav-link'
       li class='nav-item' = link_to t('.delete_button'), question_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
 br
