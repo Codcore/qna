@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
   expose :answer, ->{ question.answers.new }
 
   def create
+    question.user = current_user
     if question.save
       flash[:success] = t('.flash_messages.question.created')
       redirect_to questions_path
