@@ -28,7 +28,6 @@ feature 'User can browse questions list', %q{
     sign_in(user)
 
     visit questions_path
-    save_and_open_page
     expect(page).to have_button'Edit'
     expect(page).to have_button'Delete'
   end
