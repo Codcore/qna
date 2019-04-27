@@ -7,7 +7,7 @@ FactoryBot.define do
     n
   end
 
-  factory :user do
+  factory :user, aliases: [:author] do
     id
     email
     password { 'password' }

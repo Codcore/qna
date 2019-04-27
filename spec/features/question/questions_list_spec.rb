@@ -10,33 +10,44 @@ feature 'User can browse questions list', %q{
   given!(:question) { create(:question, user: user) }
   given(:another_user) { create(:user) }
 
-  scenario 'Authenticated user visits questions page' do
-    sign_in(user)
-    visit questions_path
+  describe 'Authenticated user visits questions page' do
+    background do
+      sign_in(user)
+      visit questions_path
+    end
 
-    expect(page).to have_content'Questions'
-    expect(page).to have_content'Actions'
+    scenario 'he can see actions column' do
+      expect(page).to have_content'Questions'
+      expect(page).to have_content'Actions'
+    end
+
+    scenario 'he can see buttons for editing and deleting his questions' do
+      expect(page).to have_button'Edit'
+      expect(page).to have_button'Delete'
+    end
   end
 
-  scenario 'Unauthenticated user visits questions page' do
-    visit questions_path
-
-    expect(page).to have_content'Questions'
-  end
-
-  scenario 'Author can edit and delete his questions' do
-    sign_in(user)
-
-    visit questions_path
-    expect(page).to have_button'Edit'
-    expect(page).to have_button'Delete'
-  end
-
-  scenario 'User cannot edit and delete questions of other users' do
+  scenario 'Authenticated user cannot edit and delete questions of other users' do
     sign_in(another_user)
 
     visit questions_path
     expect(page).to_not have_button'Edit'
     expect(page).to_not have_button'Delete'
+  end
+
+  describe 'Unauthenticated user visits question page' do
+
+    scenario 'he can see list of questions' do
+      visit questions_path
+
+      expect(page).to have_content(question.title)
+    end
+
+    scenario 'he cannot see buttons for editing and deleting questions' do
+      visit questions_path
+
+      expect(page).to_not have_button'Edit'
+      expect(page).to_not have_button'Delete'
+    end
   end
 end

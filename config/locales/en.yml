@@ -11,6 +11,7 @@ en:
         items:
           questions: "Questions"
         logout: "Logout"
+        register: "Register"
 
     footer:
       application: "QnA application"

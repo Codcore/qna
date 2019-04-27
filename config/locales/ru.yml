@@ -15,6 +15,7 @@ ru:
         items:
           questions: "Вопросы"
         logout: "Выйти"
+        register: "Зарегистрироваться"
 
     footer:
       application: "Онлайн-приложение QnA"

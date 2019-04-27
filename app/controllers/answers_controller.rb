@@ -3,6 +3,7 @@ class AnswersController < ApplicationController
   expose :question, find: ->(id=:question_id, scope){ scope.find(id) }
 
   def create
+    answer.author = current_user
     answer.question = question
     if answer.save
       redirect_to answer.question
