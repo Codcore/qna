@@ -1,7 +1,7 @@
 table class ="table"
   thead
     tr
-      th scope="col" class="text-center" colspan="#{user_signed_in? ? 0 : 2 }" = t '.table.header.question'
+      th scope="col" class="text-center" colspan="#{user_signed_in? ? 2 : 3 }" = t '.table.header.question'
       - if user_signed_in? && current_user&.questions.any?
         th scope="col" class="text-center" colspan="2" = t '.table.header.actions'
 
