@@ -1,6 +1,11 @@
 class AnswersController < ApplicationController
+  include AuthorizeHelper
+
   expose :answer
   expose :question, find: ->(id=:question_id, scope){ scope.find(id) }
+
+  before_action :authenticate_user!, except: [:show]
+  before_action -> { authorize_author_for!(answer) }, only: [:update, :destroy]
 
   def create
     answer.author = current_user
