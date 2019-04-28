@@ -13,8 +13,7 @@ class AnswersController < ApplicationController
     if answer.save
       redirect_to answer.question
     else
-      flash[:validation_error] = answer.errors.full_messages.join('|')
-      redirect_to question_path(answer.question)
+      render 'questions/show'
     end
   end
 
@@ -22,8 +21,7 @@ class AnswersController < ApplicationController
     if answer.update(answer_params)
       redirect_to question_path(answer.question)
     else
-      flash[:validation_error] = answer.errors.full_messages.join('|')
-      redirect_to edit_answer_path(answer)
+      render :edit
     end
   end
 

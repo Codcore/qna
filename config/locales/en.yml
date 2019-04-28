@@ -19,7 +19,7 @@ en:
       thinknetica: "Thinknetica online-school"
 
     errors:
-      header: "Errors found"
+      header: "Errors found:"
 
     flash:
       validation_error:

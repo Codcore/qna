@@ -14,8 +14,7 @@ class QuestionsController < ApplicationController
       flash[:success] = t('.flash_messages.question.created')
       redirect_to questions_path
     else
-      flash[:validation_error] = question.errors.full_messages.join('|')
-      redirect_to action: :new
+      render :new
     end
   end
 
@@ -23,8 +22,7 @@ class QuestionsController < ApplicationController
     if question.update(question_params)
       redirect_to question
     else
-      flash[:validation_error] = question.errors.full_messages.join('|')
-      redirect_to action: :edit
+      render :edit
     end
   end
 

@@ -62,9 +62,9 @@ RSpec.describe QuestionsController, type: :controller do
         expect { post :create, params: { question: attributes_for(:question, :invalid) } }.not_to change(Question, :count)
       end
 
-      it 'should redirect to the new view' do
+      it 'should render new view' do
         post :create, params: { question: attributes_for(:question, :invalid) }
-        expect(response).to redirect_to(new_question_path)
+        expect(response).to render_template :new
       end
     end
   end
@@ -100,8 +100,8 @@ RSpec.describe QuestionsController, type: :controller do
         expect(question.body).to eq(old_question.body)
       end
 
-      it 'should redirect to edit view' do
-        expect(response).to redirect_to(edit_question_path(question))
+      it 'should render edit view' do
+        expect(response).to render_template :edit
       end
     end
 
