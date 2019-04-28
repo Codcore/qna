@@ -52,7 +52,7 @@ en:
         few: "%{count} answers"
         many: "%{count} answers"
         one: "%{count} answer"
-        other: "%{count} anwers"
+        other: "%{count} answers"
 
     create:
       flash_messages:
