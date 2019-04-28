@@ -1,14 +1,15 @@
 class QuestionsController < ApplicationController
-
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :check_authorized, only: [:update, :destroy]
+  include AuthorizeHelper
 
   expose :question
   expose :questions, ->{ Question.all }
   expose :answer, ->{ question.answers.new }
 
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action -> { authorize_author_for!(question) }, only: [:update, :destroy]
+
   def create
-    question.user = current_user
+    question.author = current_user
     if question.save
       flash[:success] = t('.flash_messages.question.created')
       redirect_to questions_path
@@ -33,14 +34,6 @@ class QuestionsController < ApplicationController
   end
 
   private
-
-  def check_authorized
-    return render :show, status: :unauthorized unless authorized_user?
-  end
-
-  def authorized_user?
-    current_user == question.user
-  end
 
   def question_params
     params.require(:question).permit(:title, :body)

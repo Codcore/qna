@@ -1,6 +1,6 @@
 tr
   th scope="row" = link_to question.title, question_path(question)
-  - if question.user == current_user && user_signed_in?
+  - if question.author == current_user && user_signed_in?
     td = button_to t('.edit'), edit_question_path(question), class: 'btn btn-outline-secondary btn-sm', method: :get
     td = button_to t('.delete'), question_path(question), class: 'btn btn-outline-danger btn-sm', method: :delete, data: { confirm: t('.sure')}
   - else

@@ -1,12 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
-  let(:question) { create(:question) }
-  let!(:answer) { create(:answer) }
+  let(:user) { create(:user)}
+  let(:another_user) { create(:user)}
 
+  let!(:question) { create(:question, author: user) }
+  let!(:answer) { create(:answer, question: question, author: user) }
+
+
+  before { login(user) }
   describe 'POST #create' do
+
     context 'with valid attributes' do
       it 'should save a new answer to the database' do
+        question.reload
+        answer.reload
         expect { post :create, params: { answer: attributes_for(:answer), question_id: question }}.to change(question.answers, :count).by(1)
       end
 
@@ -59,18 +67,33 @@ RSpec.describe AnswersController, type: :controller do
       before { patch :update, params: { answer: { body: nil }, id: answer } }
 
       it 'should not change answer attributes' do
-        expect { patch :update, params: { answer: attributes_for(:answer), id: answer } }.not_to change(Answer, :count)
+        expect { patch :update, params: { answer: attributes_for(:answer), id: answer } }.not_to change(question.answers, :count)
       end
 
       it 'should redirect to the edit action' do
         expect(response).to redirect_to edit_answer_path(answer)
       end
     end
+
+    context 'by non-author user' do
+
+      before { login(another_user) }
+
+      it 'should not save the answer' do
+        expect { patch :update, params: { id: answer, answer: attributes_for(:answer) } }.not_to change(question.answers, :count)
+      end
+
+      it 'should have status 401 Not authorized' do
+        patch :update, params: { id: answer, answer: attributes_for(:answer) }
+
+        expect(response).to have_http_status(401)
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
     it 'should delete the answer' do
-      expect { delete :destroy, params: { id: answer } }.to change(Answer, :count).by(-1)
+      expect { delete :destroy, params: { id: answer } }.to change(question.answers, :count).by(-1)
     end
 
     it 'should redirect to the answer question' do

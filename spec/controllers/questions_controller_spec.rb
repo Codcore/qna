@@ -4,7 +4,7 @@ RSpec.describe QuestionsController, type: :controller do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
 
-  let!(:question) { create(:question, user: user) }
+  let!(:question) { create(:question, author: user) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 3) }
@@ -48,7 +48,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with valid attributes' do
       it 'should save a new question in the database' do
-        expect { post :create, params: { question: attributes_for(:question) } }.to change(user.questions, :count).by(1)
+        expect { post :create, params: { question: attributes_for(:question) } }.to change(Question, :count).by(1)
       end
 
       it 'should redirect to show view' do
@@ -73,7 +73,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with valid attributes' do
       before { login(user) }
-      before { patch :update, params: { id: question, question: { title: 'New title', body: 'New body', user: user } } }
+      before { patch :update, params: { id: question, question: { title: 'New title', body: 'New body' } } }
 
       it 'should change question attributes' do
         question.reload
@@ -125,7 +125,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'DELETE #destroy' do
     before { login(user) }
 
-    let!(:question) { create(:question, user: user) }
+    let!(:question) { create(:question, author: user) }
 
     it 'should delete the question' do
       expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
