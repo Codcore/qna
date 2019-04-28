@@ -30,10 +30,10 @@ RSpec.describe AnswersController, type: :controller do
         expect { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }}.not_to change(question.answers, :count)
       end
 
-      it 'should redirect to the answer question path' do
+      it 'should render new template' do
         post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }
 
-        expect(response).to redirect_to question_path(question)
+        expect(response).to render_template 'questions/show'
       end
     end
   end
@@ -71,7 +71,7 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'should redirect to the edit action' do
-        expect(response).to redirect_to edit_answer_path(answer)
+        expect(response).to render_template :edit
       end
     end
 
