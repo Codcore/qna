@@ -7,7 +7,7 @@ feature 'User can browse questions list', %q{
 } do
 
   given(:user) { create(:user) }
-  given!(:question) { create(:question, user: user) }
+  given!(:question) { create(:question, author: user) }
   given(:another_user) { create(:user) }
 
   describe 'Authenticated user visits questions page' do

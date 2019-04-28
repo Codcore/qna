@@ -28,10 +28,13 @@ feature 'User can create question', %q{
 
     scenario 'asks a question with errors' do
       fill_in 'Question title', with: nil
-      fill_in 'Description', with: 'Some stub text'
+      fill_in 'Description', with: nil
       click_on 'Create a new question'
 
       expect(page).to have_content 'Errors found'
+      expect(page).to have_content "Title can't be blank"
+      expect(page).to have_content "Body can't be blank"
+
       expect(page).to have_field 'Question title'
       expect(page).to have_field 'Description'
     end
