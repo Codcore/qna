@@ -7,7 +7,7 @@ feature 'Add answer on question page', %q{
 } do
 
   given(:user) { create(:user) }
-  given(:question) { create(:question, user: user) }
+  given(:question) { create(:question, author: user) }
 
   describe 'Authorized user visit question page' do
     background do
@@ -15,16 +15,19 @@ feature 'Add answer on question page', %q{
       visit question_path(question)
     end
 
-    scenario 'he can see form for adding an answer' do
-      expect(page).to have_field 'Answer text'
-      expect(page).to have_button 'Create a new answer'
-    end
-
     scenario 'he can add an answer' do
       fill_in 'Answer text', with: 'New answer is here'
       click_on 'Create a new answer'
 
-      expect(page).to have_content('New answer is here')
+      expect(page).to have_content 'New answer is here'
+    end
+
+    scenario 'he cannot add an answer with validation errors' do
+      fill_in 'Answer text', with: nil
+      click_on 'Create a new answer'
+
+      expect(page).to have_content 'Errors found:'
+      expect(page).to have_content "Body can't be blank"
     end
   end
 
@@ -34,5 +37,4 @@ feature 'Add answer on question page', %q{
     expect(page).to_not have_field 'Answer text'
     expect(page).to_not have_button 'Create a new answer'
   end
-
 end
