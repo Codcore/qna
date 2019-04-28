@@ -5,7 +5,7 @@ div class='card mt-3'
     p class='card-text' = question.body
   div class='card-header d-flex flex-row-reverse'
     ul class='nav nav-pills card-header-pills'
-      - if authorized_user_for_resource?(question)
+      - if question.authorized?(current_user)
         li class='nav-item' = link_to t('.edit_button'), edit_question_path(question), class: 'nav-link'
         li class='nav-item' = link_to t('.delete_button'), question_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
 br
@@ -21,7 +21,7 @@ br
         p class='card-text' = answer.body
       div class='card-header d-flex flex-row-reverse'
         ul class='nav nav-pills card-header-pills'
-          - if authorized_user_for_resource?(answer)
+          - if answer.authorized?(current_user)
             li class='nav-item' = link_to t('.edit_button'), edit_answer_path(answer), class: 'nav-link'
             li class='nav-item' = link_to t('.delete_button'), answer_path(answer), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
 

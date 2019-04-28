@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  include AuthorizeableResource
+
   has_many :answers, dependent: :destroy
   belongs_to :author, class_name: 'User'
 

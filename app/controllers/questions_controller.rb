@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  include AuthorizeHelper
+  include AuthorizeableController
 
   expose :question
   expose :questions, ->{ Question.all }
