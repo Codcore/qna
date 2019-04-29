@@ -9,4 +9,8 @@ class User < ApplicationRecord
          :recoverable,
          :rememberable,
          :validatable
+
+  def authorized_for?(resource)
+    id == resource.author.id
+  end
 end
