@@ -113,10 +113,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect { patch :update, params: { id: question, question: attributes_for(:question) } }.not_to change(Question, :count)
       end
 
-      it 'should have status 401 Not authorized' do
+      it 'should have status 403 Forbidden' do
         patch :update, params: { id: question, question: attributes_for(:question) }
 
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(403)
       end
     end
   end
@@ -143,10 +143,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect { delete :destroy, params: { id: question } }.to_not change(Question, :count)
       end
 
-      it 'should have status 401 Not authorized' do
-        patch :update, params: { id: question, question: attributes_for(:question) }
+      it 'should have status 403 Forbidden' do
+        delete :destroy, params: { id: question }
 
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(403)
       end
     end
   end

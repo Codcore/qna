@@ -70,7 +70,7 @@ RSpec.describe AnswersController, type: :controller do
         expect { patch :update, params: { answer: attributes_for(:answer), id: answer } }.not_to change(question.answers, :count)
       end
 
-      it 'should redirect to the edit action' do
+      it 'should render edit action' do
         expect(response).to render_template :edit
       end
     end
@@ -83,10 +83,10 @@ RSpec.describe AnswersController, type: :controller do
         expect { patch :update, params: { id: answer, answer: attributes_for(:answer) } }.not_to change(question.answers, :count)
       end
 
-      it 'should have status 401 Not authorized' do
+      it 'should have status 403 forbidden' do
         patch :update, params: { id: answer, answer: attributes_for(:answer) }
 
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(403)
       end
     end
   end
@@ -99,6 +99,20 @@ RSpec.describe AnswersController, type: :controller do
     it 'should redirect to the answer question' do
       delete :destroy, params: { id: answer }
       expect(response).to redirect_to(answer.question)
+    end
+
+    context 'by non-author user' do
+      before { login(another_user) }
+
+      it 'should not delete the question' do
+        expect { delete :destroy, params: { id: answer} }.to_not change(question.answers, :count)
+      end
+
+      it 'should have status 403 Forbidden' do
+        delete :destroy, params: { id: answer }
+
+        expect(response).to have_http_status(403)
+      end
     end
   end
 end
