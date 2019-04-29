@@ -35,8 +35,4 @@ class AnswersController < ApplicationController
   def answer_params
     params.require(:answer).permit(:title, :body)
   end
-
-  def authorize_author_for!(resource)
-    render template: 'errors/401_error', status: :unauthorized unless resource.authorized?(current_user)
-  end
 end
