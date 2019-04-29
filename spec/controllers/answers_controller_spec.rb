@@ -105,10 +105,24 @@ RSpec.describe AnswersController, type: :controller do
       expect(response).to redirect_to(answer.question)
     end
 
+    context 'by author' do
+      before { login(user) }
+
+      it 'should delete the answer' do
+        expect { delete :destroy, params: { id: answer} }.to change(question.answers, :count).by(-1)
+      end
+
+      it 'should redirect to the question page' do
+        delete :destroy, params: { id: answer }
+
+        expect(response).to redirect_to(question_path(question))
+      end
+    end
+
     context 'by non-author user' do
       before { login(another_user) }
 
-      it 'should not delete the question' do
+      it 'should not delete the answer' do
         expect { delete :destroy, params: { id: answer} }.to_not change(question.answers, :count)
       end
 

@@ -140,6 +140,20 @@ RSpec.describe QuestionsController, type: :controller do
       expect(response).to redirect_to questions_path
     end
 
+    context 'by author' do
+      before { login(user) }
+
+      it 'should delete the question' do
+        expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
+      end
+
+      it 'should redirect to the questions page' do
+        delete :destroy, params: { id: question }
+
+        expect(response).to redirect_to(questions_path)
+      end
+    end
+
     context 'by non-author user' do
       before { login(another_user) }
 
