@@ -82,6 +82,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect(question.body).to eq 'New body'
       end
 
+      it 'should tie up logged user as author for question' do
+        expect(question.author_id).to eq user.id
+      end
+
       it 'should redirect to the updated question' do
         patch :update, params: { id: question, question: attributes_for(:question) }
         expect(response).to redirect_to question

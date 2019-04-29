@@ -18,6 +18,10 @@ RSpec.describe AnswersController, type: :controller do
         expect { post :create, params: { answer: attributes_for(:answer), question_id: question }}.to change(question.answers, :count).by(1)
       end
 
+      it 'should tie up logged user as author for answer' do
+        expect(answer.author_id).to eq user.id
+      end
+
       it 'should redirect to the answers question path' do
         post :create, params: { answer: attributes_for(:answer), question_id: question }
         expect(response).to redirect_to question
