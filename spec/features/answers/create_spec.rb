@@ -19,7 +19,10 @@ feature 'Add answer on question page', %q{
       fill_in 'Answer text', with: 'New answer is here'
       click_on 'Create a new answer'
 
-      expect(page).to have_content 'New answer is here'
+      expect(current_path).to eq question_path(question)
+      within '.answers' do
+        expect(page).to have_content 'New answer is here'
+      end
     end
 
     scenario 'he cannot add an answer with validation errors' do
