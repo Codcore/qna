@@ -3,7 +3,7 @@ div class='card mt-3'
     h4 class='card-title' = question.title
   div class='card-body'
     p class='card-text question' = question.body
-  - if question.authorized?(current_user)
+  - if current_user&.authorized_for?(question)
     div class='card-header d-flex flex-row-reverse'
       ul class='nav nav-pills card-header-pills'
         li class='nav-item' = link_to t('.edit_button'), edit_question_path(question), class: 'nav-link'
@@ -29,6 +29,7 @@ div class='mt-3 answers'
               ul class='nav nav-pills'
                 li class='nav-item' = link_to t('.edit_button'), edit_answer_path(answer), class: 'nav-link'
                 li class='nav-item' = link_to t('.delete_button'), answer_path(answer), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
+
 
 - if user_signed_in?
 
