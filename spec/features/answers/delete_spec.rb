@@ -9,23 +9,26 @@ feature 'Author can delete his answer', %q{
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
   given(:question) { create(:question, author: user) }
-  given!(:answer) { create(:answer, question: question, author: another_user) }
+  given!(:answer) { create(:answer, question: question, author: user) }
 
   scenario 'Author can delete his answer' do
-    sign_in another_user
+    sign_in user
 
     visit(question_path(question))
     expect(page).to have_content(answer.body)
-    page.all(:link, 'Delete')[0].click
-
-    expect(page).not_to have_content(answer.body)
+    within '.answers' do
+      expect(page).to have_link'Delete'
+    end
   end
 
   scenario 'Non-author cannot delete answer created by another user' do
     sign_in another_user
 
     visit(question_path(question))
-    expect(page).to have_link('Delete', count: 1)
+    expect(page).to have_content(answer.body)
+    within '.answers' do
+      expect(page).to_not have_link'Delete'
+    end
   end
 
   scenario 'Not logged in user cannot delete answers' do
