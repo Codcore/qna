@@ -11,6 +11,6 @@ class User < ApplicationRecord
          :validatable
 
   def authorized_for?(resource)
-    id == resource.author.id
+    id == resource.author_id
   end
 end

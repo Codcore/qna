@@ -19,7 +19,8 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'should tie up logged user as author for answer' do
-        expect(answer.author_id).to eq user.id
+        post :create, params: { answer: attributes_for(:answer), question_id: question }
+        expect(controller.answer.author_id).to eq user.id
       end
 
       it 'should redirect to the answers question path' do
@@ -96,15 +97,6 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'should delete the answer' do
-      expect { delete :destroy, params: { id: answer } }.to change(question.answers, :count).by(-1)
-    end
-
-    it 'should redirect to the answer question' do
-      delete :destroy, params: { id: answer }
-      expect(response).to redirect_to(answer.question)
-    end
-
     context 'by author' do
       before { login(user) }
 
