@@ -93,3 +93,6 @@ ru:
       header: "Новый ответ на вопрос"
     edit:
       header: "Изменить ответ на вопрос"
+    answer:
+      edit_button: "Изменить"
+      delete_button: "Удалить"
