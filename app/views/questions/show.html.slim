@@ -1,8 +1,8 @@
-div class='card mt-3'
+div class='card mt-3 question'
   div class='card-header bg-white'
     h4 class='card-title' = question.title
   div class='card-body'
-    p class='card-text question' = question.body
+    p class='card-text question-body' = question.body
   - if current_user&.authorized_for?(question)
     div class='card-footer bg-white d-flex flex-row-reverse'
       ul class='nav nav-pills card-header-pills'
