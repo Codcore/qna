@@ -1,4 +1,4 @@
-div class='d-flex justify-content-end answer'
+div class='d-flex justify-content-end answer' id='answer-#{answer.id}'
   div class='col-11 d-flex justify-content-end'
     div class='card mt-2 mb-2 '
       div class='card-header bg-white'
@@ -15,6 +15,7 @@ div class='d-flex justify-content-end answer'
 
             li class='nav-item' = link_to t('.delete_button'), answer_path(answer),
                     method: :delete,
+                    remote: true,
                     data: { confirm: t('questions.question.sure')},
                     class: 'nav-link text-danger'
 

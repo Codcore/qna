@@ -11,14 +11,19 @@ feature 'Author can delete his answer', %q{
   given(:question) { create(:question, author: user) }
   given!(:answer) { create(:answer, question: question, author: user) }
 
-  scenario 'Author can delete his answer' do
+  scenario 'Author can delete his answer', js: true do
     sign_in user
 
     visit(question_path(question))
     expect(page).to have_content(answer.body)
+
     within '.answers' do
-      expect(page).to have_link'Delete'
+      accept_confirm do
+        click_on I18n.translate('questions.show.delete_button')
+      end
     end
+
+    expect(page).not_to have_content answer.body
   end
 
   scenario 'Non-author cannot delete answer created by another user' do
