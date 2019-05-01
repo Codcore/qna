@@ -1,0 +1,28 @@
+div class='d-flex justify-content-end '
+  div class='col-11 d-flex justify-content-end'
+    div class='card mt-2 mb-2 '
+      div class='card-header bg-white'
+        small class='text-muted' = answer.created_at.strftime('%B %e at %l:%M %p')
+      div class='card-body'
+        p class='card-text font-weight-lighter answer' = answer.body
+      - if current_user&.authorized_for?(answer)
+        div class='card-footer bg-white d-flex flex-row-reverse'
+          ul class='nav nav-pills'
+            li class='nav-item' = link_to t('.edit_button'),
+                    '#',
+                    class: 'nav-link edit-answer-link',
+                    data: { answer_id: answer.id}
+
+            li class='nav-item' = link_to t('.delete_button'), answer_path(answer),
+                    method: :delete,
+                    data: { confirm: t('questions.question.sure')},
+                    class: 'nav-link text-danger'
+
+
+= bootstrap_form_with model: answer, class: :hidden, html: { id: "edit-answer-#{answer.id}" } do |form|
+  .answer-errors
+    = render 'shared/errors', resource: answer
+
+  = form.text_area :body
+  = form.submit
+

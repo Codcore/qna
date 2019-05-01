@@ -46,7 +46,6 @@ en:
     show:
       edit_button: "Edit"
       delete_button: "Delete"
-      add_answer: "Post answer"
 
       answers_count:
         few: "%{count} answers"
@@ -58,12 +57,6 @@ en:
       flash_messages:
         question:
           created: "Your question is successfully created."
-
-  create:
-    flash_messages:
-      question:
-        created: "Ваш вопрос успешно создан"
-
 
   helpers:
     submit:
@@ -88,3 +81,6 @@ en:
       header: "New answer for question"
     edit:
       header: "Edit answer for question"
+    answer:
+      edit_button: "Edit"
+      delete_button: "Delete"
