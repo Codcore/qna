@@ -51,14 +51,18 @@ feature 'User can edit his question', %q{
     end
   end
 
-  describe 'Non-author' do
-    scenario "cannot edit other user's question" do
-      sign_in another_user
+  scenario "Non-author cannot edit other user's question" do
+    sign_in another_user
 
-      visit question_path(question)
-      within('.question') do
-        expect(page).not_to have_link I18n.translate('questions.show.edit_button')
-      end
+    visit question_path(question)
+    within('.question') do
+      expect(page).not_to have_link I18n.translate('questions.show.edit_button')
     end
+  end
+
+  scenario 'Not logged in user cannot edit questions' do
+    visit(question_path(question))
+
+    expect(page).to_not have_link I18n.translate('questions.show.edit_button')
   end
 end

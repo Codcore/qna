@@ -19,7 +19,6 @@ class AnswersController < ApplicationController
 
   def destroy
     answer.destroy
-    redirect_to answer.question
   end
 
   private

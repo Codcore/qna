@@ -101,13 +101,13 @@ RSpec.describe AnswersController, type: :controller do
       before { login(user) }
 
       it 'should delete the answer' do
-        expect { delete :destroy, params: { id: answer} }.to change(question.answers, :count).by(-1)
+        expect { delete :destroy, params: { id: answer}, format: :js }.to change(question.answers, :count).by(-1)
       end
 
-      it 'should redirect to the question page' do
-        delete :destroy, params: { id: answer }
+      it 'should render destroy view' do
+        delete :destroy, params: { id: answer }, format: :js
 
-        expect(response).to redirect_to(question_path(question))
+        expect(response).to render_template :destroy
       end
     end
 
@@ -115,11 +115,11 @@ RSpec.describe AnswersController, type: :controller do
       before { login(another_user) }
 
       it 'should not delete the answer' do
-        expect { delete :destroy, params: { id: answer} }.to_not change(question.answers, :count)
+        expect { delete :destroy, params: { id: answer}, format: :js }.to_not change(question.answers, :count)
       end
 
       it 'should have status 403 Forbidden' do
-        delete :destroy, params: { id: answer }
+        delete :destroy, params: { id: answer }, format: :js
 
         expect(response).to have_http_status(403)
       end

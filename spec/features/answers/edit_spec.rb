@@ -54,14 +54,20 @@ feature 'User can edit his answer', %q{
     end
   end
 
-  describe 'Non-author' do
-    scenario "cannot edit other user's answer" do
-      sign_in another_user
+  scenario "cannot edit other user's answer" do
+    sign_in another_user
 
-      visit question_path(question)
-      within('.answers') do
-        expect(page).not_to have_link I18n.translate('answers.answer.edit_button')
-      end
+    visit question_path(question)
+    within('.answers') do
+      expect(page).not_to have_link I18n.translate('answers.answer.edit_button')
+    end
+  end
+
+  scenario 'Not logged in user cannot edit answers' do
+    visit(question_path(question))
+
+    within('.answers') do
+      expect(page).to_not have_link I18n.translate('answers.answer.edit_button')
     end
   end
 end
