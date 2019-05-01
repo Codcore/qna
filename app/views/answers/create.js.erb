@@ -1,6 +1,10 @@
 $('.new-answer > .answer-errors').html('<%= render 'shared/errors', resource: answer %>')
 <% if answer.persisted? %>
-  $('.answers').append('<%= j render answer %>').fadeIn('slow')
+
+//  $('.answers').append().hide().fadeIn('slow')
+  $('<%= j render answer %>').hide().appendTo('.answers').fadeIn('slow')
+  $('.hidden').hide()
+
   $('.new-answer #answer_body').val('')
   $('#answers-count').text('<%= t("questions.show.answers_count", count: answer.question.answers.count) %>')
 <% end %>
