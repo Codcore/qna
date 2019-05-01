@@ -7,6 +7,7 @@ feature 'User can edit his answer', %q{
 } do
 
   given!(:user) { create(:user) }
+  given!(:another_user) { create(:user) }
   given!(:question) { create(:question) }
   given!(:answer) { create(:answer, question: question, author: user) }
 
@@ -39,7 +40,28 @@ feature 'User can edit his answer', %q{
       end
     end
 
-    scenario 'edits his answer with errors'
-    scenario "tries to edit other user's answer"
+    scenario 'edits his answer with errors' do
+      sign_in user
+      visit question_path(question)
+
+      click_on I18n.translate('answers.answer.edit_button')
+      within(".answers #edit-answer-#{answer.id}") do
+        fill_in  I18n.translate('helpers.label.answer.body'), with: nil
+      end
+
+      click_on I18n.translate('helpers.submit.answer.update')
+      expect(page).to have_content I18n.translate('shared.flash.validation_error.header')
+    end
+  end
+
+  describe 'Non-author' do
+    scenario "cannot edit other user's answer" do
+      sign_in another_user
+
+      visit question_path(question)
+      within('.answers') do
+        expect(page).not_to have_link I18n.translate('answers.answer.edit_button')
+      end
+    end
   end
 end
