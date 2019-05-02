@@ -1,3 +1,4 @@
 $('#answer-<%= answer.id %>').hide('slow').queue(function () {
     $(this).remove();
 })
+$('#answers-count').text('<%= I18n.translate('questions.show.answers_count', count: answer.question.answers.count) %>')

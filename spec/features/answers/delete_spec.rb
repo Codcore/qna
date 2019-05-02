@@ -24,6 +24,10 @@ feature 'Author can delete his answer', %q{
     end
 
     expect(page).not_to have_content answer.body
+
+    within '#answers-count' do
+      expect(page).to have_content "#{I18n.translate("questions.show.answers_count", count: question.answers.count)}"
+    end
   end
 
   scenario 'Non-author cannot delete answer created by another user' do

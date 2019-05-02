@@ -10,10 +10,11 @@ div class='card mt-3 question'
         li class='nav-item' = link_to t('.delete_button'), question_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
 br
 
-div class='mt-3 answers'
 
   h5 class='text-muted' id='answers-count' #{t('.answers_count', count: question.answers.count)}
   hr
+
+div class='mt-3 answers'
 
   - if question.answers.any?
 
