@@ -10,14 +10,6 @@ feature 'User can edit his question', %q{
   given!(:another_user) { create(:user) }
   given!(:question) { create(:question, author: user) }
 
-  scenario 'Unauthenticated user can not edit question' do
-    visit question_path(question)
-
-    within '.question' do
-      expect(page).to_not have_link I18n.translate('questions.show.edit_button')
-    end
-  end
-
   describe 'Authenticated user' do
     scenario 'edits his answer' do
       sign_in user
@@ -60,7 +52,7 @@ feature 'User can edit his question', %q{
     end
   end
 
-  scenario 'Not logged in user cannot edit questions' do
+  scenario 'Unauthenticated user cannot edit questions' do
     visit(question_path(question))
 
     expect(page).to_not have_link I18n.translate('questions.show.edit_button')

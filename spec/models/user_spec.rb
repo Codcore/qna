@@ -10,6 +10,7 @@ RSpec.describe User, type: :model do
   it 'should determine if user is an author of resource' do
     expect(user.authorized_for?(question)).to eq true
   end
+
   it 'should determine if user is not author of the resource' do
     expect(another_user.authorized_for?(question)).to eq false
   end

@@ -1,7 +1,6 @@
 $('.new-answer > .answer-errors').html('<%= render 'shared/errors', resource: answer %>')
 <% if answer.persisted? %>
 
-//  $('.answers').append().hide().fadeIn('slow')
   $('<%= j render answer %>').hide().appendTo('.answers').fadeIn('slow')
   $('.hidden').hide()
 

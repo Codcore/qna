@@ -27,7 +27,7 @@ feature 'Author can delete his question', %q{
     expect(page).not_to have_link('Delete')
   end
 
-  scenario 'Not logged in user cannot delete answers' do
+  scenario 'Unauthenticated user cannot delete answers' do
     visit(question_path(question))
 
     expect(page).to_not have_link('Delete')

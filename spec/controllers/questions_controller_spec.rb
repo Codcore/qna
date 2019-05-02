@@ -70,9 +70,9 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'PATCH #update' do
+    before { login(user) }
 
     context 'with valid attributes' do
-      before { login(user) }
       before { patch :update, params: { id: question, question: { title: 'New title', body: 'New body' } } }
 
       it 'should change question attributes' do
