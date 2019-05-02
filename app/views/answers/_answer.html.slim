@@ -1,13 +1,24 @@
 div class='d-flex justify-content-end answer' id='answer-#{answer.id}'
   div class='col-11 d-flex justify-content-end'
-    div class='card mt-2 mb-2 '
+    div class='card mt-2 mb-2 #{answer.best_solution? ? 'border-success bg-success text-white' : ''}'
       div class='card-header bg-white'
         small class='text-muted' = answer.created_at.strftime('%B %e at %l:%M %p')
+
+        - if answer.best_solution
+          div class='d-flex justify-content-end'
+          span class='badge badge-success' = t('answers.answer.best_solution_button').upcase
+
       div class='card-body'
         p class='card-text answer-body' = answer.body
+
       - if current_user&.authorized_for?(answer)
+
         div class='card-footer bg-white d-flex flex-row-reverse'
           ul class='nav nav-pills'
+
+            - unless answer.best_solution
+              = render 'answers/best_solution_link', answer: answer
+
             li class='nav-item' = link_to t('.edit_button'),
                     '#',
                     class: 'nav-link edit-answer-link',
@@ -19,6 +30,13 @@ div class='d-flex justify-content-end answer' id='answer-#{answer.id}'
                     data: { confirm: t('questions.question.sure')},
                     class: 'nav-link text-danger'
 
+      - else
+        - if answer.best_solution || !user_signed_in?
+
+        - else
+          div class='card-footer bg-white d-flex flex-row-reverse'
+            ul class='nav nav-pills'
+              = render 'answers/best_solution_link', answer: answer
 
 = bootstrap_form_with model: answer, class: :hidden, html: { id: "edit-answer-#{answer.id}" } do |form|
   .answer-errors

@@ -11,14 +11,6 @@ feature 'User can edit his answer', %q{
   given!(:question) { create(:question) }
   given!(:answer) { create(:answer, question: question, author: user) }
 
-  scenario 'Unauthenticated user can not edit answer' do
-    visit question_path(question)
-
-    within '.answers' do
-      expect(page).to_not have_link 'Edit'
-    end
-  end
-
   describe 'Authenticated user', js: true do
     scenario 'edits his answer' do
       sign_in user
@@ -52,18 +44,18 @@ feature 'User can edit his answer', %q{
       click_on I18n.translate('helpers.submit.answer.update')
       expect(page).to have_content I18n.translate('shared.flash.validation_error.header')
     end
-  end
 
-  scenario "cannot edit other user's answer" do
-    sign_in another_user
+    scenario "cannot edit other user's answer" do
+      sign_in another_user
 
-    visit question_path(question)
-    within('.answers') do
-      expect(page).not_to have_link I18n.translate('answers.answer.edit_button')
+      visit question_path(question)
+      within('.answers') do
+        expect(page).not_to have_link I18n.translate('answers.answer.edit_button')
+      end
     end
   end
 
-  scenario 'Not logged in user cannot edit answers' do
+  scenario 'Unauthenticated user cannot edit answers' do
     visit(question_path(question))
 
     within('.answers') do

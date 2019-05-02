@@ -1,0 +1,7 @@
+- if current_user&.authorized_for?(answer.question)
+  li class='nav-item' = link_to t('answers.answer.best_solution_button'),
+          best_solution_answer_path(answer),
+          class: 'nav-link text-success',
+          method: :post,
+          remote: true,
+          data: {confirm: t('questions.question.sure')}

@@ -53,6 +53,7 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'PATCH #update' do
+
     context 'with valid attributes' do
       it 'should change answers attributes' do
         patch :update, params: { answer: { body: "New body" }, id: answer }, format: :js
@@ -125,4 +126,64 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe 'POST #best_solution' do
+    let(:answer_2) { create(:answer, question: question, author: user) }
+
+    context 'by author' do
+      it 'should set answer as a best solution for question' do
+        login(user)
+        post :best_solution, params: { id: answer }, format: :js
+        expect(controller.answer.best_solution).to eq true
+      end
+
+      it 'should re-set answer as a best solution for question' do
+        login(user)
+        post :best_solution, params: { id: answer }, format: :js
+        post :best_solution, params: { id: answer_2 }, format: :js
+        expect(answer.reload.best_solution).to eq false
+      end
+
+      it 'should render best_solution template' do
+        post :best_solution, params: { id: answer }, format: :js
+        expect(response).to render_template :best_solution
+      end
+    end
+
+    context 'by non-author' do
+      before { login(another_user) }
+      it 'should not set answer as a best solution for question' do
+        post :best_solution, params: { id: answer }, format: :js
+        expect(controller.answer.best_solution).to eq false
+      end
+
+      it 'should have 403 status Forbidden' do
+        post :best_solution, params: { id: answer }, format: :js
+        expect(response).to have_http_status(403)
+      end
+    end
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

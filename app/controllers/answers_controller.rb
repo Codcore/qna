@@ -5,7 +5,8 @@ class AnswersController < ApplicationController
   expose :question, find: ->(id=:question_id, scope){ scope.find(id) }
 
   before_action :authenticate_user!, except: [:show]
-  before_action -> { authorize_author_for!(answer) }, only: [:update, :destroy]
+  before_action -> { authorize_author_for!(answer) }, only: [:update, :destroy ]
+  before_action -> { authorize_author_for!(answer.question) }, only: [:best_solution]
 
   def create
     answer.author = current_user
@@ -19,6 +20,10 @@ class AnswersController < ApplicationController
 
   def destroy
     answer.destroy
+  end
+
+  def best_solution
+    answer.question.update(best_solution_answer: answer)
   end
 
   private
