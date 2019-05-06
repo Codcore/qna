@@ -43,15 +43,6 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
-  describe 'GET #edit' do
-
-    it 'should render edit view' do
-      get :edit, params: { id: answer }
-
-      expect(response).to render_template :edit
-    end
-  end
-
   describe 'PATCH #update' do
 
     context 'with valid attributes' do
