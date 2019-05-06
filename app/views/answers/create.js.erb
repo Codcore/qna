@@ -5,5 +5,6 @@ $('.new-answer > .answer-errors').html('<%= render 'shared/errors', resource: an
   $('.hidden').hide()
 
   $('.new-answer #answer_body').val('')
+  $('.new-answer #answer_files').val('')
   $('#answers-count').text('<%= t("questions.show.answers_count", count: answer.question.answers.count) %>')
 <% end %>
