@@ -23,7 +23,7 @@ class AnswersController < ApplicationController
   end
 
   def best_solution
-    answer.question.update(best_solution_answer: answer)
+    answer.best_solution!
   end
 
   private
