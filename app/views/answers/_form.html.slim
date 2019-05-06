@@ -3,4 +3,7 @@
     = render 'shared/errors', resource: answer
 
   = form.text_area :body
+
+  = form.file_field :files, multiple: true
+
   = form.submit
