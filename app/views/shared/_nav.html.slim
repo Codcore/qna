@@ -14,8 +14,9 @@ nav class="navbar navbar-expand-lg navbar-dark bg-dark"
 
         div class="dropdown-menu" aria-labelledby="navbarDropdown"
           a class="dropdown-item" href="#{new_question_path}" = t('.menu.questions.ask_question')
-          div class="dropdown-divider"
-          a class="dropdown-item" href="#" = t('.menu.questions.my_questions')
+          - if user_signed_in?
+            div class="dropdown-divider"
+            a class="dropdown-item" href="" = t('.menu.questions.my_questions')
 
       li class="nav-item active"
         a class="nav-link" href="#"
