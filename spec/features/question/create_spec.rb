@@ -38,6 +38,17 @@ feature 'User can create question', %q{
       expect(page).to have_field 'Question title'
       expect(page).to have_field 'Description'
     end
+
+    scenario 'asks a question with attached file' do
+      fill_in 'Question title', with: 'Test question'
+      fill_in 'Description', with: 'Some stub text'
+
+      attach_file 'File', "#{Rails.root}/spec/rails_helper.rb"
+      click_on I18n.translate('helpers.submit.question.create')
+      click_on 'Test question'
+
+      expect(page).to have_link 'rails_helper.rb'
+    end
   end
 
   scenario 'Unauthenticated user tries to ask a question' do
