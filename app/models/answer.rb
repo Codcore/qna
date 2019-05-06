@@ -9,7 +9,7 @@ class Answer < ApplicationRecord
   def best_solution!
     best_solution_answer = question.answers.find_by(best_solution: true)
     Answer.transaction do
-      question.answers.find_by(best_solution: true).update!(best_solution: false) if best_solution_answer
+      best_solution_answer&.update!(best_solution: false)
       self.update!(best_solution: true)
     end
   end

@@ -31,9 +31,9 @@ div class='d-flex justify-content-end answer' id='answer-#{answer.id}'
                     class: 'nav-link text-danger'
 
       - else
-        - if answer.best_solution || !user_signed_in?
 
-        - else
+        - if !answer.best_solution || user_signed_in?
+
           div class='card-footer bg-white d-flex flex-row-reverse'
             ul class='nav nav-pills'
               = render 'answers/best_solution_link', answer: answer
