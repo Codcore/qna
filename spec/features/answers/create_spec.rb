@@ -36,6 +36,21 @@ feature 'Add answer on question page', %q{
       expect(page).to have_content 'Errors found:'
       expect(page).to have_content "Body can't be blank"
     end
+
+    scenario 'he can add an answer with attached files', js: true do
+      fill_in I18n.translate('helpers.label.answer.body'), with: 'Test question'
+      page.execute_script("$('input[id=answer_files]').css('opacity','1')")
+      attach_file 'Files', %W(#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb)
+      click_on I18n.translate('helpers.submit.answer.create')
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+
+      fill_in I18n.translate('helpers.label.answer.body'), with: 'Test question'
+      click_on I18n.translate('helpers.submit.answer.create')
+      expect(page).to have_link 'rails_helper.rb', count: 1
+      expect(page).to have_link 'spec_helper.rb', count: 1
+    end
   end
 
   scenario 'Unauthorized user cannot add an answer' do

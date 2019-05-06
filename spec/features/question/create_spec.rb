@@ -43,7 +43,7 @@ feature 'User can create question', %q{
       fill_in 'Question title', with: 'Test question'
       fill_in 'Description', with: 'Some stub text'
 
-      attach_file 'File', %W(#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb)
+      attach_file 'Files', %W(#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb)
       click_on I18n.translate('helpers.submit.question.create')
       click_on 'Test question'
 
