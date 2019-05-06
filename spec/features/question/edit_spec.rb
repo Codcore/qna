@@ -11,9 +11,9 @@ feature 'User can edit his question', %q{
   given!(:question) { create(:question, author: user) }
 
   describe 'Authenticated user' do
-    scenario 'edits his answer' do
-      sign_in user
+    before { sign_in user }
 
+    scenario 'edits his answer' do
       visit questions_path
       click_on question.title
 
@@ -31,7 +31,6 @@ feature 'User can edit his question', %q{
     end
 
     scenario 'edits his question with errors' do
-      sign_in user
       visit question_path(question)
 
       click_on I18n.translate('questions.show.edit_button')
@@ -40,6 +39,19 @@ feature 'User can edit his question', %q{
       click_on I18n.translate('helpers.submit.question.update')
 
       expect(page).to have_content I18n.translate('shared.flash.validation_error.header')
+    end
+
+    scenario 'edit his question and adds files' do
+      visit question_path(question)
+      click_on I18n.translate('questions.show.edit_button')
+
+      attach_file 'Files', %W(#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb)
+      click_on I18n.translate('helpers.submit.question.update')
+
+      within '.question' do
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
+      end
     end
   end
 
