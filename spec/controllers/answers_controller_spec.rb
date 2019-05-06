@@ -134,14 +134,14 @@ RSpec.describe AnswersController, type: :controller do
       it 'should set answer as a best solution for question' do
         login(user)
         post :best_solution, params: { id: answer }, format: :js
-        expect(controller.answer.best_solution).to eq true
+        expect(controller.answer).to be_best_solution
       end
 
       it 'should re-set answer as a best solution for question' do
         login(user)
         post :best_solution, params: { id: answer }, format: :js
         post :best_solution, params: { id: answer_2 }, format: :js
-        expect(answer.reload.best_solution).to eq false
+        expect(answer.reload).to_not be_best_solution
       end
 
       it 'should render best_solution template' do
@@ -154,7 +154,7 @@ RSpec.describe AnswersController, type: :controller do
       before { login(another_user) }
       it 'should not set answer as a best solution for question' do
         post :best_solution, params: { id: answer }, format: :js
-        expect(controller.answer.best_solution).to eq false
+        expect(controller.answer).to_not be_best_solution
       end
 
       it 'should have 403 status Forbidden' do
