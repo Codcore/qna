@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'questions#index'
 
   resources :questions do
-    resources :answers, shallow: true, except: [:index, :show, :new] do
+    resources :answers, shallow: true, except: [:index, :show, :new, :edit] do
       member do
         post 'best_solution'
       end
