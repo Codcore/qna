@@ -131,7 +131,7 @@ RSpec.describe AnswersController, type: :controller do
 
         it "should render 'delete_attachment.js.erb' template" do
           delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
-          expect(response).to render_template 'answers/delete_attachment.js.erb'
+          expect(response).to render_template 'shared/_delete_attachment.js.erb'
         end
       end
 

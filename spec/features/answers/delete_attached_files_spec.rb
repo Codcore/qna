@@ -23,6 +23,7 @@ feature 'Author can delete attached files for his answers', %q{
       click_link(class: 'delete-file-link')
 
       expect(page).not_to have_css("#attachment-#{file_id}")
+      expect(page).not_to have_link(class: 'delete-file-link')
       expect(page).not_to have_content 'rails_helper.rb'
     end
   end
