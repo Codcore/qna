@@ -40,7 +40,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim-rails'
 gem 'decent_exposure', '3.0.0'
 gem 'jquery-rails'
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '>= 4.3.1'
 gem 'bootstrap_form', '>= 4.2.0'
 gem 'devise'
 gem 'devise-i18n'
