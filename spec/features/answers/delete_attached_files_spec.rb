@@ -7,8 +7,9 @@ feature 'Author can delete attached files for his answers', %q{
 } do
 
   given(:author)   { create(:user) }
+  given(:another_user)   { create(:user) }
   given!(:question) { create(:question) }
-  given!(:answer_1) { create(:answer, question: question, author: author) }
+  given!(:answer_1) { create(:answer, :with_files, question: question, author: author) }
   given!(:answer_2) { create(:answer, question: question) }
 
   scenario 'Author can delete attached files to his answer', js: true do
@@ -16,21 +17,30 @@ feature 'Author can delete attached files for his answers', %q{
     visit question_path(question)
 
     within ".answers #answer-#{answer_1.id}" do
-      click_on I18n.translate('answers.answer.edit_button')
-    end
+      file_id = answer_1.files.last.id
 
-    within ".answers #edit-answer-#{answer_1.id}" do
-      page.execute_script("$('input[id=answer_files]').css('opacity','1')")
-      attach_file 'Files', "#{Rails.root}/spec/rails_helper.rb"
-      click_on I18n.translate('helpers.submit.answer.update')
+      expect(page).to have_link(class: 'delete-file-link', count: 1)
+      click_link(class: 'delete-file-link')
+
+      expect(page).not_to have_css("#attachment-#{file_id}")
+      expect(page).not_to have_content 'rails_helper.rb'
     end
+  end
+
+  scenario 'Non author cannot delete attachments' do
+    visit question_path(question)
 
     within ".answers #answer-#{answer_1.id}" do
-      expect(page).to have_link(class: 'delete-file-link', count: 1)
-      first('.delete-file-link').click
-
       expect(page).not_to have_link(class: 'delete-file-link')
-      expect(page).not_to have_content 'rails_helper.rb'
+    end
+  end
+
+  scenario 'Unauthenticated user cannot delete attachments' do
+    sign_in another_user
+    visit question_path(question)
+
+    within ".answers #answer-#{answer_1.id}" do
+      expect(page).not_to have_link(class: 'delete-file-link')
     end
   end
 end
