@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   include AuthorizeableResource
+  include AttachableResource
 
   expose :question, scope: -> { Question.with_attached_files }
   expose :questions, ->{ Question.all }
@@ -7,6 +8,7 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action -> { authorize_author_for!(question) }, only: [:update, :destroy]
+  before_action -> { delete_attachment(question) }, only: [:destroy]
 
   def create
     question.author = current_user

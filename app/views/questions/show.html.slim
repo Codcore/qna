@@ -7,7 +7,7 @@ div class='card mt-3 question'
     -if question.files.attached?
       hr
       - question.files.each do |file|
-        div class='ml-3 mb-2' = link_to octicon('file')+' '+file.filename.to_s, url_for(file)
+        = render template: 'shared/_attachment', locals: { file: file, resource: question }
 
     div class='card-footer bg-white d-flex flex-row-reverse'
       ul class='nav nav-pills card-header-pills'
@@ -15,8 +15,8 @@ div class='card mt-3 question'
         li class='nav-item' = link_to t('.delete_button'), question_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
 br
 
-  h5 class='text-muted' id='answers-count' #{t('.answers_count', count: question.answers.count)}
-  hr
+h5 class='text-muted' id='answers-count' #{t('.answers_count', count: question.answers.count)}
+hr
 
 div class='mt-3 answers'
 
