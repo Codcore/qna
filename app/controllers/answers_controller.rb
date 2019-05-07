@@ -19,7 +19,13 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    answer.destroy
+    if params[:purge_attachment_id]
+      @file = answer.files.find_by_id(params[:purge_attachment_id])
+      @file.purge
+      render 'delete_attachment.js.erb'
+    else
+      answer.destroy
+    end
   end
 
   def best_solution

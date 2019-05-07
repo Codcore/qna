@@ -6,6 +6,7 @@ RSpec.describe AnswersController, type: :controller do
 
   let!(:question) { create(:question, author: user) }
   let!(:answer) { create(:answer, question: question, author: user) }
+  let!(:answer_with_attachment) { create(:answer, :with_files, question: question, author: user) }
 
 
   before { login(user) }
@@ -114,6 +115,21 @@ RSpec.describe AnswersController, type: :controller do
         delete :destroy, params: { id: answer }, format: :js
 
         expect(response).to have_http_status(403)
+      end
+    end
+
+    context 'with given :purge_attachment_id param' do
+      before { login user}
+
+      it 'should find and delete attachment by id' do
+        expect do
+          delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
+        end.to change(ActiveStorage::Attachment, :count).by(-1)
+      end
+
+      it "should render 'delete_attachment.js.erb' template" do
+        delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
+        expect(response).to render_template 'answers/delete_attachment.js.erb'
       end
     end
   end
