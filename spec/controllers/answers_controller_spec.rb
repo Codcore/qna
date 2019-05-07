@@ -129,6 +129,12 @@ RSpec.describe AnswersController, type: :controller do
           end.to change(ActiveStorage::Attachment, :count).by(-1)
         end
 
+        it 'should not delete answer' do
+          expect do
+            delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
+          end.not_to change(Answer, :count)
+        end
+
         it "should render 'delete_attachment.js.erb' template" do
           delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
           expect(response).to render_template 'shared/_delete_attachment.js.erb'
