@@ -47,6 +47,7 @@ RSpec.describe AnswersController, type: :controller do
   describe 'PATCH #update' do
 
     context 'with valid attributes' do
+
       it 'should change answers attributes' do
         patch :update, params: { answer: { body: "New body" }, id: answer }, format: :js
         answer.reload
@@ -119,17 +120,34 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     context 'with given :purge_attachment_id param' do
-      before { login user}
+      context 'when user is an author' do
+        before { login user}
 
-      it 'should find and delete attachment by id' do
-        expect do
+        it 'should find and delete attachment by id' do
+          expect do
+            delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
+          end.to change(ActiveStorage::Attachment, :count).by(-1)
+        end
+
+        it "should render 'delete_attachment.js.erb' template" do
           delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
-        end.to change(ActiveStorage::Attachment, :count).by(-1)
+          expect(response).to render_template 'answers/delete_attachment.js.erb'
+        end
       end
 
-      it "should render 'delete_attachment.js.erb' template" do
-        delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
-        expect(response).to render_template 'answers/delete_attachment.js.erb'
+      context 'when user is not author' do
+        before { login another_user}
+
+        it 'should not delete attachment by id' do
+          expect do
+            delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
+          end.not_to change(ActiveStorage::Attachment, :count)
+        end
+
+        it 'should return 403 Forbidden status' do
+          delete :destroy, params: { id: answer_with_attachment, purge_attachment_id: answer_with_attachment.files.last.id }, format: :js
+          expect(response).to have_http_status(403)
+        end
       end
     end
   end
