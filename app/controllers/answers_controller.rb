@@ -1,6 +1,5 @@
 class AnswersController < ApplicationController
   include AuthorizeableResource
-  include AttachableResource
 
   expose :answer
   expose :question, find: ->(id=:question_id, scope){ scope.find(id) }
@@ -8,7 +7,6 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action -> { authorize_author_for!(answer) }, only: [:update, :destroy ]
   before_action -> { authorize_author_for!(answer.question) }, only: [:best_solution]
-  before_action -> { delete_attachment(answer) }, only: [:destroy]
 
   def create
     answer.author = current_user

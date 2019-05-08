@@ -159,44 +159,6 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to have_http_status(403)
       end
     end
-
-    context 'with given :purge_attachment_id param' do
-      context 'when user is an author' do
-        before { login user}
-
-        it 'should find and delete attachment by id' do
-          expect do
-            delete :destroy, params: { id: question_with_attachment, purge_attachment_id: question_with_attachment.files.last.id }, format: :js
-          end.to change(ActiveStorage::Attachment, :count).by(-1)
-        end
-
-        it 'should not delete question' do
-          expect do
-            delete :destroy, params: { id: question_with_attachment, purge_attachment_id: question_with_attachment.files.last.id }, format: :js
-          end.not_to change(Question, :count)
-        end
-
-        it "should render 'delete_attachment.js.erb' template" do
-          delete :destroy, params: { id: question_with_attachment, purge_attachment_id: question_with_attachment.files.last.id }, format: :js
-          expect(response).to render_template 'shared/_delete_attachment.js.erb'
-        end
-      end
-
-      context 'when user is not author' do
-        before { login another_user}
-
-        it 'should not delete attachment by id' do
-          expect do
-            delete :destroy, params: { id: question_with_attachment, purge_attachment_id: question_with_attachment.files.last.id }, format: :js
-          end.not_to change(ActiveStorage::Attachment, :count)
-        end
-
-        it 'should return 403 Forbidden status' do
-          delete :destroy, params: { id: question_with_attachment, purge_attachment_id: question_with_attachment.files.last.id }, format: :js
-          expect(response).to have_http_status(403)
-        end
-      end
-    end
   end
 end
 
