@@ -6,8 +6,8 @@ div class='card mt-3 question'
   - if current_user&.authorized_for?(question)
     -if question.files.attached?
       hr
-      - question.files.each do |file|
-        = render template: 'shared/_attachment', locals: { file: file, resource: question }
+      - question.files.each do |attachment|
+        = render template: 'shared/_attachment', locals: { attachment: attachment, resource: question }
 
     div class='card-footer bg-white d-flex flex-row-reverse'
       ul class='nav nav-pills card-header-pills'
