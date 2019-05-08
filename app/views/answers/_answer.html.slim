@@ -11,8 +11,8 @@ div class='d-flex justify-content-end answer' id='answer-#{answer.id}'
       div class='card-body'
         p class='card-text answer-body' = answer.body
       - if answer.files.attached?
-        - answer.files.each do |file|
-          = render template: 'shared/_attachment', locals: { file: file, resource: answer }
+        - answer.files.each do |attachment|
+          = render template: 'shared/_attachment', locals: { attachment: attachment, resource: answer }
 
       - if current_user&.authorized_for?(answer)
 
