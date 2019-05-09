@@ -8,7 +8,6 @@ RSpec.describe AnswersController, type: :controller do
   let!(:answer) { create(:answer, question: question, author: user) }
   let!(:answer_with_attachment) { create(:answer, :with_files, question: question, author: user) }
 
-
   before { login(user) }
   describe 'POST #create' do
 
@@ -84,7 +83,6 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'should have status 403 forbidden' do
         patch :update, params: { id: answer, answer: attributes_for(:answer) }, format: :js
-
         expect(response).to have_http_status(403)
       end
     end
