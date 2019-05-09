@@ -47,7 +47,6 @@ GEM
     arel (9.0.0)
     autoprefixer-rails (9.5.1.1)
       execjs
-<<<<<<< HEAD
     aws-eventstream (1.0.3)
     aws-partitions (1.158.0)
     aws-sdk-core (3.50.0)
@@ -64,8 +63,6 @@ GEM
       aws-sigv4 (~> 1.0)
     aws-sigv4 (1.1.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
-=======
->>>>>>> 91f2949fe61be29294568310e4ac27016b6aaa16
     bcrypt (3.1.12)
     bindex (0.7.0)
     bootsnap (1.4.3)
@@ -160,14 +157,11 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.2)
       mini_portile2 (~> 2.4.0)
-<<<<<<< HEAD
     octicons (8.5.0)
       nokogiri (>= 1.6.3.1)
     octicons_helper (8.5.0)
       octicons (= 8.5.0)
       rails
-=======
->>>>>>> 91f2949fe61be29294568310e4ac27016b6aaa16
     orm_adapter (0.5.0)
     pg (1.1.4)
     popper_js (1.14.5)
@@ -320,10 +314,7 @@ DEPENDENCIES
   decent_exposure (= 3.0.0)
   devise
   devise-i18n
-<<<<<<< HEAD
   dotenv-rails
-=======
->>>>>>> 91f2949fe61be29294568310e4ac27016b6aaa16
   factory_bot_rails
   faker
   i18n-debug
