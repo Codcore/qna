@@ -43,11 +43,6 @@ feature 'Add answer on question page', %q{
       attach_file 'Files', %W(#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb)
       click_on I18n.translate('helpers.submit.answer.create')
 
-      expect(page).to have_link 'rails_helper.rb'
-      expect(page).to have_link 'spec_helper.rb'
-
-      fill_in I18n.translate('helpers.label.answer.body'), with: 'Test question'
-      click_on I18n.translate('helpers.submit.answer.create')
       expect(page).to have_link 'rails_helper.rb', count: 1
       expect(page).to have_link 'spec_helper.rb', count: 1
     end

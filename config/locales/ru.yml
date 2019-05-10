@@ -24,6 +24,9 @@ ru:
     flash:
       validation_error:
         header: "Обнаружены ошибки:"
+    link_form:
+      link_form:
+        header: "Ссылки"
 
   questions:
     index:
@@ -76,6 +79,10 @@ ru:
 
       answer:
         body: "Текст ответа"
+
+      link:
+        name: "Текст ссылки"
+        url: "URL ссылки"
 
   activerecord:
     models:

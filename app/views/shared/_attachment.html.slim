@@ -1,8 +1,8 @@
-div class="ml-3 mb-2 mr-3" id="attachment-#{attachment.id}"
-  = link_to octicon('file') + ' ' + attachment.filename.to_s, url_for(attachment)
+li  id="attachment-#{attachment.id}" class='list-group-item'
+  = link_to octicon('file') + ' ' + attachment.filename.to_s + ' ', url_for(attachment)
 
   - if current_user&.authorized_for?(resource)
-    span class='ml-3 mb-2' = link_to octicon('x', fill: 'red'),
+    = link_to octicon('x', fill: 'red'),
             attachment_delete_path(attachment.id),
             method: :delete,
             remote: true,

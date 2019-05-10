@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 = bootstrap_form_with model: [question, answer], class: 'new-answer' do |form|
   .answer-errors
     = render 'shared/errors', resource: answer
@@ -6,5 +5,7 @@
   = form.text_area :body
 
   = form.file_field :files, multiple: true, direct_upload: true
+
+  = render 'shared/link_form', form: form
 
   = form.submit

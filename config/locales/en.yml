@@ -24,6 +24,9 @@ en:
     flash:
       validation_error:
         header: "Errors found:"
+    link_form:
+      link_form:
+        header: "Links"
 
   questions:
     index:
@@ -75,6 +78,10 @@ en:
 
       answer:
         body: "Answer text"
+
+      link:
+        name: "Link text"
+        url: "Link URL"
 
   answers:
     new:
