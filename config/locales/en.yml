@@ -24,9 +24,7 @@ en:
     flash:
       validation_error:
         header: "Errors found:"
-    link_form:
-      link_form:
-        header: "Links"
+
 
   questions:
     index:
@@ -55,11 +53,16 @@ en:
         many: "%{count} answers"
         one: "%{count} answer"
         other: "%{count} answers"
+    form:
+      link_form:
+        header: "Links"
 
     create:
       flash_messages:
         question:
           created: "Your question is successfully created."
+    link_fields:
+      remove_link: "remove link"
 
   helpers:
     submit:
@@ -92,3 +95,5 @@ en:
       edit_button: "Edit"
       delete_button: "Delete"
       best_solution_button: "Best solution!"
+    form:
+      add_link: "add link"

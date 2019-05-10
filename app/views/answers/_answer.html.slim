@@ -1,5 +1,5 @@
 div class='d-flex justify-content-end answer' id='answer-#{answer.id}'
-  div class='col-11 d-flex justify-content-end'
+  div class='d-flex justify-content-end'
     div class='card mt-2 mb-2 #{answer.best_solution? ? 'border-success bg-success text-white' : ''}'
       div class='card-header bg-white'
         small class='text-muted' = answer.created_at.strftime('%B %e at %l:%M %p')

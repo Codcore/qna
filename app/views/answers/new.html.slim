@@ -1,7 +1,8 @@
 br
+.card
+  .card-body
+    h5 #{t('.header')} &laquo; #{question.title} &raquo;
 
-h5 #{t('.header')} &laquo; #{question.title} &raquo;
+    hr
 
-hr
-
-= render 'answers/form'
+    = render 'answers/form'

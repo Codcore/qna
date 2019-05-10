@@ -24,7 +24,7 @@ div class='mt-3 answers'
 
   - if question.answers.any?
 
-    = render question.answers.reject { |answer| answer.id == nil }
+    = render question.answers
 
 - if user_signed_in?
 
