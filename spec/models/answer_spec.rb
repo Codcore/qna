@@ -5,8 +5,9 @@ RSpec.describe Answer, type: :model do
   let(:subject) { create(:answer, question: question) }
   let(:another_answer) { create(:answer, question: question) }
 
-
   it { should belong_to(:question) }
+  it { should have_many( :links).dependent(:destroy) }
+  it { should accept_nested_attributes_for :links }
 
   it { should validate_presence_of :body }
 
