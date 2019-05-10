@@ -7,8 +7,6 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action -> { authorize_author_for!(question) }, only: [:update, :destroy]
-  before_action -> { question.links.new }, only: [:new]
-  before_action -> { answer.links.new }, only: [:show]
 
   def create
     question.author = current_user
@@ -36,6 +34,6 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :body, files: [], links_attributes: [:name, :url, :id])
+    params.require(:question).permit(:title, :body, files: [], links_attributes: [:name, :url, :id, :_destroy])
   end
 end

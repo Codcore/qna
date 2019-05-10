@@ -46,6 +46,7 @@ gem 'bootstrap_form', '>= 4.2.0'
 gem 'devise'
 gem 'devise-i18n'
 gem 'aws-sdk-s3'
+gem 'cocoon'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

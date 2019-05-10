@@ -2,10 +2,21 @@
   .answer-errors
     = render 'shared/errors', resource: answer
 
+  .field
   = form.text_area :body
 
+  .field
   = form.file_field :files, multiple: true, direct_upload: true
 
-  = render 'shared/link_form', form: form
+  .field
+    div class='col-11'
+      div class='card'
+        .card-header = "#{t('questions.form.link_form.header')}:"
+        .card-body
+          #links
+          .links
+            strong
+              = link_to_add_association octicon('plus', fill: :green, class: 'mr-2') + t('.add_link'), form, :links, class: 'text-success'
 
+  br
   = form.submit

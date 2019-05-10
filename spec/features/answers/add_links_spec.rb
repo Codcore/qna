@@ -13,6 +13,7 @@ feature 'User can add links to the answer', %q{
   scenario 'User adds link when asks question', js: true do
     sign_in user
     visit question_path(question)
+    click_on 'add link'
 
     fill_in I18n.translate('helpers.label.answer.body'), with: 'Test answer'
 
@@ -21,6 +22,5 @@ feature 'User can add links to the answer', %q{
 
     click_on I18n.translate('helpers.submit.answer.create')
     expect(page).to have_link 'My gist', href: gist_url
-
   end
 end

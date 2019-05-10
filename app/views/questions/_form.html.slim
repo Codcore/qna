@@ -1,12 +1,26 @@
 = bootstrap_form_with model: question, local: true do |form|
   = render 'shared/errors', resource: question
 
-  = form.text_field :title
+  .field
+    = form.text_field :title
 
-  = form.text_area :body
+  .field
+    = form.text_area :body
 
-  = form.file_field :files, multiple: true
+  .field
+    = form.file_field :files, multiple: true
 
-  = render 'shared/link_form', form: form
+    div class='col-11'
+      div class='card'
+        .card-header = "#{t('.link_form.header')}:"
+        .card-body
+          #links
+            = form.fields_for :links do |f|
+              = render 'link_fields', f: f
 
-  = form.submit
+          .links
+            strong
+              = link_to_add_association octicon('plus', fill: :green) + '  add link', form, :links, class: 'text-success'
+
+    br
+    = form.submit

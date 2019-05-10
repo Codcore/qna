@@ -61,6 +61,11 @@ ru:
       flash_messages:
         question:
           created: "Ваш вопрос успешно создан"
+    form:
+      link_form:
+        header: "Ссылки"
+    link_fields:
+      remove_link: "удалить ссылку"
 
   helpers:
     submit:
@@ -104,3 +109,5 @@ ru:
       edit_button: "Изменить"
       delete_button: "Удалить"
       best_solution_button: "Лучшее решение!"
+    form:
+      add_link: "добавить ссылку"
