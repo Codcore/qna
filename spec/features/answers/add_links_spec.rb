@@ -16,14 +16,24 @@ feature 'User can add links to the answer', %q{
     click_on 'add link'
   end
 
-  scenario 'User adds link when asks answer', js: true do
+  scenario 'User adds link when asks answer with GitHub Gist url', js: true do
     fill_in I18n.translate('helpers.label.answer.body'), with: 'Test answer'
     fill_in I18n.translate('helpers.label.link.name'), with: 'My gist'
     fill_in I18n.translate('helpers.label.link.url'), with: gist_url
 
     click_on I18n.translate('helpers.submit.answer.create')
 
-    expect(page).to have_link 'My gist', href: gist_url
+    expect(page).to have_selector('div.gist')
+  end
+
+  scenario 'User adds link and links form resets', js: true do
+    fill_in I18n.translate('helpers.label.answer.body'), with: 'Test answer'
+    fill_in I18n.translate('helpers.label.link.name'), with: 'My gist'
+    fill_in I18n.translate('helpers.label.link.url'), with: 'http://google.com'
+
+    click_on I18n.translate('helpers.submit.answer.create')
+
+    expect(page).to have_link('add link')
   end
 
   scenario 'User adds link when asks answer with invalid url', js: true do

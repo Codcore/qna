@@ -1,10 +1,20 @@
 $('.new-answer > .answer-errors').html('<%= render 'shared/errors', resource: answer %>')
 <% if answer.persisted? %>
 
-  $('<%= j render answer %>').hide().appendTo('.answers').fadeIn('slow')
-  $('.hidden').hide()
+$('<%= j render answer %>').hide().appendTo('.answers').fadeIn('slow')
+$('.hidden').hide()
 
-  $('.new-answer #answer_body').val('')
-  $('.new-answer #answer_files').val('') .removeAttr('disabled')
-  $('#answers-count').text('<%= t("questions.show.answers_count", count: answer.question.answers.count) %>')
+$('.new-answer #answer_body').val('')
+$('.new-answer #answer_files').val('') .removeAttr('disabled')
+$('#answers-count').text('<%= t("questions.show.answers_count", count: answer.question.answers.count) %>')
+$('.new-answer .remove_fields').each(function (i, link) {
+   link.click()
+})
 <% end %>
+<% answer.links.each do |link| %>
+  <% if link.gist? %>
+    document.location.reload(true)
+    <% break %>
+  <% end %>
+<% end %>
+

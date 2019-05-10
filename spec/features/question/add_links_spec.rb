@@ -7,7 +7,7 @@ feature 'User can add links to question', %q{
 } do
 
   given(:user) { create(:user) }
-  given(:gist_url) { 'https://gist.github.com/Codcore/022e6257f0fe09cd0f8f47cdafb48f37' }
+  given(:google_url) { 'https://google.com' }
 
   background do
     sign_in user
@@ -22,11 +22,11 @@ feature 'User can add links to question', %q{
     fill_in I18n.translate('helpers.label.question.body'), with: 'Test description'
 
     fill_in I18n.translate('helpers.label.link.name'), with: 'My gist'
-    fill_in I18n.translate('helpers.label.link.url'), with: gist_url
+    fill_in I18n.translate('helpers.label.link.url'), with: google_url
 
     click_on I18n.translate('helpers.submit.question.create')
     click_on 'Test question'
-    expect(page).to have_link 'My gist', href: gist_url
+    expect(page).to have_link 'My gist', href: google_url
   end
 
   scenario 'User adds link when asks question with invalid url', js: true do
