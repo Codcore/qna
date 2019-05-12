@@ -10,8 +10,17 @@
   .field
     = form.file_field :files, multiple: true
 
+  .field
     div class='col-11'
-      div class='card'
+      .card
+        .card-header = "#{t('.image_form.header')}:"
+        .card-body
+          = form.fields_for :reward do |f|
+            = render 'rewards/form', f: f
+    br
+
+    div class='col-11'
+      .card
         .card-header = "#{t('.link_form.header')}:"
         .card-body
           #links

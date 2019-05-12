@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Answer, type: :model do
-  let(:question) { create(:question) }
-  let(:subject) { create(:answer, question: question) }
+  let!(:author)   { create(:user) }
+  let!(:question) { create(:question, author: author) }
+  let!(:reward)   { create(:reward, :for_question, rewardable: question, question: question) }
+  let!(:subject)  { create(:answer, question: question, author: author) }
   let(:another_answer) { create(:answer, question: question) }
 
   it { should belong_to(:question) }
@@ -36,6 +38,12 @@ RSpec.describe Answer, type: :model do
     subject.reload
 
     expect(subject).to_not be_best_solution
+  end
+
+  it '#best_solution! should set reward for author if reward is present for question' do
+    subject.best_solution!
+    author.reload
+    expect(author.rewards.first).to eq reward
   end
 
   it 'should have many attached files' do

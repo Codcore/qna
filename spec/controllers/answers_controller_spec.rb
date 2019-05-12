@@ -5,7 +5,8 @@ RSpec.describe AnswersController, type: :controller do
   let(:another_user) { create(:user)}
 
   let!(:question) { create(:question, author: user) }
-  let!(:answer) { create(:answer, question: question, author: user) }
+  let!(:reward)   { create(:reward, :for_question, rewardable: question, question: question) }
+  let!(:answer)   { create(:answer, question: question, author: user) }
   let!(:answer_with_attachment) { create(:answer, :with_files, question: question, author: user) }
 
   before { login(user) }
@@ -138,6 +139,12 @@ RSpec.describe AnswersController, type: :controller do
       it 'should render best_solution template' do
         post :best_solution, params: { id: answer }, format: :js
         expect(response).to render_template :best_solution
+      end
+
+      it 'should give reward to the best solution answer author' do
+        post :best_solution, params: { id: answer }, format: :js
+        user.reload
+        expect(user.rewards.first).to eq reward
       end
     end
 

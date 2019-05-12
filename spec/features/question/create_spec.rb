@@ -14,7 +14,7 @@ feature 'User can create question', %q{
       sign_in(user)
 
       visit questions_path
-      click_on 'Ask a question'
+      click_link 'Ask a question'
     end
 
     scenario 'asks a question' do
@@ -49,6 +49,17 @@ feature 'User can create question', %q{
 
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'
+    end
+
+    scenario 'adds reward when creating a question' do
+      fill_in 'Question title', with: 'Test question with reward'
+      fill_in 'Description', with: 'Some stub text'
+
+      fill_in I18n.translate('helpers.label.reward.name'), with: 'Reward'
+      attach_file I18n.translate('helpers.label.reward.image'), "#{Rails.root}/spec/static/medal_another.png"
+
+      click_on I18n.translate('helpers.submit.question.create')
+      expect(page).to have_content I18n.translate('questions.create.flash_messages.question.created')
     end
   end
 
