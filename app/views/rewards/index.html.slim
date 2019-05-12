@@ -1,0 +1,12 @@
+h1 = t('.rewards.header')
+h1 = p @rewards.count
+table class ="table"
+  thead
+    tr
+      th scope="col" = t('.rewards.reward_name')
+      th scope="col" = t('.rewards.reward_image')
+      th scope="col" = t('.rewards.reward_question')
+
+  tbody
+
+    = render @rewards

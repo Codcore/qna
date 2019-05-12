@@ -7,6 +7,8 @@ RSpec.describe User, type: :model do
 
   it { should validate_presence_of :email }
   it { should validate_presence_of :password }
+  it { should have_many :rewards }
+
   it 'should determine if user is an author of resource' do
     expect(user.authorized_for?(question)).to eq true
   end

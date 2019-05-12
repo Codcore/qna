@@ -56,6 +56,8 @@ en:
     form:
       link_form:
         header: "Links"
+      image_form:
+        header: "Reward"
 
     create:
       flash_messages:
@@ -86,6 +88,10 @@ en:
         name: "Link text"
         url: "Link URL"
 
+      reward:
+        name: "Reward name"
+        image: "Reward image"
+
   answers:
     new:
       header: "New answer for question"
@@ -97,3 +103,10 @@ en:
       best_solution_button: "Best solution!"
     form:
       add_link: "add link"
+  rewards:
+    index:
+      rewards:
+        header: "Your rewards"
+        reward_name: "Reward name"
+        reward_image: "Reward icon"
+        reward_question: "Question"

@@ -13,9 +13,13 @@ class Answer < ApplicationRecord
 
   def best_solution!
     best_solution_answer = question.answers.find_by(best_solution: true)
+    reward = question.reward
+
     Answer.transaction do
       best_solution_answer&.update!(best_solution: false)
       self.update!(best_solution: true)
+      author.rewards << reward if reward
+      author.save!
     end
   end
 end

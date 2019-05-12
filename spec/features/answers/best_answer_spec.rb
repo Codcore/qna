@@ -6,9 +6,10 @@ feature 'User can choose best answer for question', %q{
   I'd like to choose the best question
 } do
 
-  given(:author) { create(:user) }
+  given!(:author) { create(:user) }
   given(:non_author_user) { create(:user) }
   given!(:question) { create(:question, author: author) }
+  given!(:reward)   { create(:reward, :for_question, rewardable: question, question: question) }
   given!(:answer_1) { create(:answer, question: question, author: author) }
   given!(:answer_2) { create(:answer, question: question, author: non_author_user) }
 
@@ -36,6 +37,14 @@ feature 'User can choose best answer for question', %q{
         within(".answers") do
           expect(first('.answer')).to have_content(answer_1.body)
         end
+      end
+
+      scenario 'reward is given to answer author for a question with reward' do
+        author.reload
+        sleep 3
+        visit rewards_index_path
+        expect(page).to have_content(reward.name)
+        expect(page).to have_content(reward.question.title)
       end
 
       scenario 'can re-select a best answer for question' do

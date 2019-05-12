@@ -64,6 +64,8 @@ ru:
     form:
       link_form:
         header: "Ссылки"
+      image_form:
+        header: "Награда"
     link_fields:
       remove_link: "удалить ссылку"
 
@@ -89,6 +91,11 @@ ru:
         name: "Текст ссылки"
         url: "URL ссылки"
 
+      reward:
+        name: "Название награды"
+        image: "Значок награды"
+
+
   activerecord:
     models:
       question: "Вопрос"
@@ -111,3 +118,10 @@ ru:
       best_solution_button: "Лучшее решение!"
     form:
       add_link: "добавить ссылку"
+  rewards:
+    index:
+      rewards:
+        header: "Мои Награды"
+        reward_name: "Название награды"
+        reward_image: "Значок награды"
+        reward_question: "Вопрос"
