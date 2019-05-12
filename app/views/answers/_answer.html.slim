@@ -47,7 +47,24 @@ div class='d-flex justify-content-end answer' id='answer-#{answer.id}'
   .answer-errors
     = render 'shared/errors', resource: answer
 
+  .field
   = form.text_area :body
-  = form.file_field :files, multiple: true
+
+  .field
+  = form.file_field :files, multiple: true, direct_upload: true
+
+  div class='col-11'
+    div class='card'
+      .card-header = "#{t('questions.form.link_form.header')}:"
+      .card-body
+        #links
+          = form.fields_for :links do |f|
+            = render 'link_fields', f: f
+
+        .links
+          strong
+            = link_to_add_association octicon('plus', fill: :green, class: 'mr-2') + t('answers.form.add_link'), form, :links, class: 'text-success'
+
+    br
   = form.submit
 
