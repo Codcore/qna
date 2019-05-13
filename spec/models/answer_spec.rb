@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Answer, type: :model do
   let!(:author)   { create(:user) }
   let!(:question) { create(:question, author: author) }
-  let!(:reward)   { create(:reward, :for_question, rewardable: question, question: question) }
+  let!(:reward)   { create(:reward, question: question) }
   let!(:subject)  { create(:answer, question: question, author: author) }
   let(:another_answer) { create(:answer, question: question) }
 

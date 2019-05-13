@@ -9,7 +9,7 @@ feature 'User can choose best answer for question', %q{
   given!(:author) { create(:user) }
   given(:non_author_user) { create(:user) }
   given!(:question) { create(:question, author: author) }
-  given!(:reward)   { create(:reward, :for_question, rewardable: question, question: question) }
+  given!(:reward)   { create(:reward, question: question) }
   given!(:answer_1) { create(:answer, question: question, author: author) }
   given!(:answer_2) { create(:answer, question: question, author: non_author_user) }
 
