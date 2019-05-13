@@ -110,3 +110,6 @@ en:
         reward_name: "Reward name"
         reward_image: "Reward icon"
         reward_question: "Question"
+  errors:
+    reward:
+      validate_attached_image: "no attached file added"

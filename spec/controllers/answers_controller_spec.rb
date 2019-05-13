@@ -5,7 +5,7 @@ RSpec.describe AnswersController, type: :controller do
   let(:another_user) { create(:user)}
 
   let!(:question) { create(:question, author: user) }
-  let!(:reward)   { create(:reward, :for_question, rewardable: question, question: question) }
+  let!(:reward)   { create(:reward, question: question) }
   let!(:answer)   { create(:answer, question: question, author: user) }
   let!(:answer_with_attachment) { create(:answer, :with_files, question: question, author: user) }
 

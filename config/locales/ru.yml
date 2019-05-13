@@ -125,3 +125,6 @@ ru:
         reward_name: "Название награды"
         reward_image: "Значок награды"
         reward_question: "Вопрос"
+  errors:
+    reward:
+      validate_attached_image: "отсутствует прикрепленный файл"
