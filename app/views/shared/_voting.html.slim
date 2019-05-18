@@ -1,0 +1,21 @@
+- if user_signed_in? && !current_user.authorized_for?(resource)
+
+  div class='voting-links float-right'
+    = link_to octicon('chevron-up'),
+            # up_vote_answer_path(resource),
+            url_for(controller: resource.class.to_s.pluralize.underscore, action: 'up_vote', id: resource.id, only_path: true),
+            method: :post,
+            class: "#{resource.class.to_s.underscore}-upvote-link vote-link",
+            remote: :true,
+            data: { type: :json }
+
+    div class="#{resource.class.to_s.underscore}-score m-2 pt-1 badge badge-dark badge-pill"
+      = resource.score
+
+    = link_to octicon('chevron-down'),
+            # down_vote_answer_path(resource),
+            url_for(controller: resource.class.to_s.pluralize.underscore, action: 'down_vote', id: resource.id),
+            method: :post,
+            class: "#{resource.class.to_s.underscore}-downvote-link vote-link",
+            remote: :true,
+            data: { type: :json }

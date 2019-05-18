@@ -1,6 +1,8 @@
-div class='card mt-3 question'
+div class='card mt-3 question' id="question-#{question.id}"
   div class='card-header bg-white'
+    = render 'shared/voting', resource: question
     h4 class='card-title' = question.title
+
   div class='card-body'
     p class='card-text question-body' = question.body
     - if question.files.attached?

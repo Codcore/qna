@@ -1,47 +1,48 @@
-div class='d-flex justify-content-end answer' id='answer-#{answer.id}'
-  div class='d-flex justify-content-end'
-    div class='card mt-2 mb-2 #{answer.best_solution? ? 'border-success bg-success text-white' : ''}'
-      div class='card-header bg-white'
-        small class='text-muted' = answer.created_at.strftime('%B %e at %l:%M %p')
+div class='answer' id='answer-#{answer.id}'
+  div class='card mt-2 mb-2 #{answer.best_solution? ? 'border-success bg-success text-white' : ''}'
+    div class='card-header bg-white'
+      small class='text-muted' = answer.created_at.strftime('%B %e at %l:%M %p')
 
-        - if answer.best_solution
-          div class='d-flex justify-content-end'
-          span class='badge badge-success' = t('answers.answer.best_solution_button').upcase
+      = render 'shared/voting', resource: answer
 
-      div class='card-body'
-        p class='card-text answer-body' = answer.body
+      - if answer.best_solution
+        br
+        span class='badge badge-success' = t('answers.answer.best_solution_button').upcase
 
-      - if answer.files.attached?
-        ul class='list-group m-2'
-          - answer.files.each do |attachment|
-            = render template: 'shared/_attachment', locals: { attachment: attachment, resource: answer }
+    div class='card-body'
+      p class='card-text answer-body' = answer.body
 
-      = render 'shared/links', resource: answer
+    - if answer.files.attached?
+      ul class='list-group m-2'
+        - answer.files.each do |attachment|
+          = render template: 'shared/_attachment', locals: { attachment: attachment, resource: answer }
 
-      - if current_user&.authorized_for?(answer)
+    = render 'shared/links', resource: answer
 
-        div class='card-footer bg-white d-flex flex-row-reverse'
-          ul class='nav nav-pills'
+    - if current_user&.authorized_for?(answer)
 
-            - unless answer.best_solution
-              = render 'answers/best_solution_link', answer: answer
+      div class='card-footer bg-white d-flex flex-row-reverse'
+        ul class='nav nav-pills'
 
-            li class='nav-item' = link_to t('.edit_button'),
-                    '#',
-                    class: 'nav-link edit-answer-link',
-                    data: { answer_id: answer.id}
-
-            li class='nav-item' = link_to t('.delete_button'), answer_path(answer),
-                    method: :delete,
-                    remote: true,
-                    data: { confirm: t('questions.question.sure')},
-                    class: 'nav-link text-danger'
-
-      - elsif current_user&.authorized_for?(answer.question) && !answer.best_solution
-
-        div class='card-footer bg-white d-flex flex-row-reverse'
-          ul class='nav nav-pills'
+          - unless answer.best_solution
             = render 'answers/best_solution_link', answer: answer
+
+          li class='nav-item' = link_to t('.edit_button'),
+                  '#',
+                  class: 'nav-link edit-answer-link',
+                  data: { answer_id: answer.id}
+
+          li class='nav-item' = link_to t('.delete_button'), answer_path(answer),
+                  method: :delete,
+                  remote: true,
+                  data: { confirm: t('questions.question.sure')},
+                  class: 'nav-link text-danger'
+
+    - elsif current_user&.authorized_for?(answer.question) && !answer.best_solution
+
+      div class='card-footer bg-white d-flex flex-row-reverse'
+        ul class='nav nav-pills'
+          = render 'answers/best_solution_link', answer: answer
 
 = bootstrap_form_with model: answer, class: :hidden, html: { id: "edit-answer-#{answer.id}" } do |form|
   .answer-errors
