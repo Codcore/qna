@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   include AuthorizeableResource
+  include Voted
 
   expose :question, scope: -> { Question.with_attached_files }
   expose :questions, -> { Question.all }

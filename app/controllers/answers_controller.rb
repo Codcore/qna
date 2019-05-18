@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   include AuthorizeableResource
+  include Voted
 
   expose :answer
   expose :question, find: ->(id=:question_id, scope){ scope.find(id) }
