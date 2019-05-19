@@ -7,18 +7,18 @@ module Votable
 
   def up_vote!(user)
     vote = find_vote_for(user)
-    vote.up_vote! if vote.reset_vote?
-    vote.reset_vote! if vote.down_vote?
+    return vote.destroy! if vote.down_vote?
+    vote.up_vote! unless vote.persisted?
   end
 
   def down_vote!(user)
     vote = find_vote_for(user)
-    vote.down_vote! if vote.reset_vote?
-    vote.reset_vote! if vote.up_vote?
+    return vote.destroy! if vote.up_vote?
+    vote.down_vote! unless vote.persisted?
   end
 
   def score
-    votes.where(vote: Vote.votes[:up]).count - votes.where(vote: Vote.votes[:down]).count
+    votes.sum(:vote)
   end
 
   private

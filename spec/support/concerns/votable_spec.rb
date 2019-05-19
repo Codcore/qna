@@ -17,9 +17,8 @@ shared_examples_for 'votable' do
 
     it 'should reset vote if user votes up after user voted down same subject' do
       subject.down_vote!(author)
-      subject.up_vote!(author)
 
-      expect(subject.votes.first).to be_reset_vote
+      expect { subject.up_vote!(author) }.to change(subject.votes, :count ).by(-1)
     end
   end
 
@@ -35,9 +34,8 @@ shared_examples_for 'votable' do
 
     it 'should reset vote if user votes down after user voted up same subject' do
       subject.up_vote!(author)
-      subject.down_vote!(author)
 
-      expect(subject.votes.first).to be_reset_vote
+      expect { subject.down_vote!(author) }.to change(subject.votes, :count ).by(-1)
     end
   end
 end
