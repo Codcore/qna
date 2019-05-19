@@ -6,17 +6,17 @@ Rails.application.routes.draw do
 
   delete '/attachments/:id', to: 'attachments#destroy', as: 'attachment_delete'
 
-  resources :questions do
+  concern :votable do
     member do
       post 'up_vote'
       post 'down_vote'
     end
+  end
 
-    resources :answers, shallow: true, except: [:index, :show, :new, :edit] do
+  resources :questions, concerns: [:votable] do
+    resources :answers, shallow: true, except: [:index, :show, :new, :edit], concerns: [:votable] do
       member do
         post 'best_solution'
-        post 'up_vote'
-        post 'down_vote'
       end
     end
   end
