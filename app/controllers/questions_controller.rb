@@ -9,6 +9,8 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action -> { authorize_author_for!(question) }, only: [:update, :destroy]
   before_action -> { question.build_reward }, only: [:new]
+  before_action :set_question_data_for_client, only: [:show]
+
   after_action :publish_question, only: [:create]
 
   def create
@@ -35,6 +37,11 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def set_question_data_for_client
+    gon.question_id = question.id
+    gon.question_author_id = question.author_id
+  end
 
   def question_params
     params.require(:question).permit(:title, :body, reward_attributes: [:name, :image], files: [], links_attributes: [:name, :url, :id, :_destroy])

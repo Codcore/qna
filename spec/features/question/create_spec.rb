@@ -89,7 +89,7 @@ feature 'User can create question', %q{
         click_on I18n.translate('helpers.submit.question.create')
       end
 
-      Capybara.using_session('user') do
+      Capybara.using_session('guest') do
         expect(page).to have_content 'Test question'
         expect(page).not_to have_link 'Delete'
         expect(page).not_to have_link 'Edit'
