@@ -9,6 +9,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action -> { authorize_author_for!(question) }, only: [:update, :destroy]
   before_action -> { question.build_reward }, only: [:new]
+  after_action :publish_question, only: [:create]
 
   def create
     question.author = current_user
@@ -37,5 +38,10 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body, reward_attributes: [:name, :image], files: [], links_attributes: [:name, :url, :id, :_destroy])
+  end
+
+  def publish_question
+    return if question.errors.any?
+    ActionCable.server.broadcast( 'questions', question: question)
   end
 end

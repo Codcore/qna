@@ -19,6 +19,8 @@ module Qna
     config.i18n.available_locales = [:en, :ru]
     config.i18n.default_locale = :en
 
+    config.action_cable.disable_request_forgery_protection = false
+
     config.generators do |g|
       g.test_framework :rspec,
                        view_specs: false,
