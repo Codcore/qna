@@ -1,0 +1,3 @@
+tr
+  th scope="row" colspan="3"
+    a href="/questions/#{@question.id}" #{@question.title}
