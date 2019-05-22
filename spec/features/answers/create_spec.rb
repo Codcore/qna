@@ -7,7 +7,9 @@ feature 'Add answer on question page', %q{
 } do
 
   given(:user) { create(:user) }
-  given(:question) { create(:question, author: user) }
+  given(:author) { create(:user) }
+
+  given(:question) { create(:question, author: author) }
 
   describe 'Authentificated user visits question page', js: true do
     background do
@@ -53,5 +55,51 @@ feature 'Add answer on question page', %q{
 
     expect(page).to_not have_field 'Answer text'
     expect(page).to_not have_button 'Create a new answer'
+  end
+
+  context "multiple sessions", js: true do
+    scenario "question appears on another users's page" do
+      Capybara.using_session('user') do
+        sign_in user
+      end
+
+      Capybara.using_session('author') do
+        sign_in author
+        visit question_path(question)
+      end
+
+      Capybara.using_session('guest') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        visit question_path(question)
+
+        fill_in 'Answer text', with: 'New answer is here'
+
+        click_on I18n.translate('helpers.submit.answer.create')
+      end
+
+      Capybara.using_session('author') do
+        within ".answers" do
+          expect(page).to have_link 'Best solution!'
+
+          page.find(".answer-upvote-link").click
+
+          within ".answer-score" do
+            expect(page).to have_content '1'
+          end
+        end
+      end
+
+      Capybara.using_session('guest') do
+        expect(page).to have_content 'New answer is here'
+
+        within ".answers" do
+          expect(page).not_to have_link 'Delete'
+          expect(page).not_to have_link 'Edit'
+        end
+      end
+    end
   end
 end
