@@ -1,0 +1,10 @@
+div class='d-flex justify-content-end mb-2' id='commentary-#{commentary.id}'
+  div class='card col-10'
+    - if current_user&.authorized_for?(commentary)
+      = link_to octicon('x', fill: 'red'),
+          commentary_path(commentary.id),
+          method: :delete,
+          remote: true,
+          data: { confirm: 'Are you sure?' },
+          class: 'delete-commentary-link'
+    div class='card-body small text-muted' = commentary.body

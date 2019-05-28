@@ -1,0 +1,11 @@
+<% commentable_type = @commentary.commentable_type.underscore %>
+<% commentable_selector = "##{commentable_type}-#{@commentable.id}" %>
+
+$("<%= commentable_selector %> .commentaries").prepend('<%= render 'shared/errors', resource: @commentary %>')
+<% if @commentary.persisted? %>
+  $("<%= commentable_selector %> .commentaries").append("<%= j render @commentary %>")
+  $(".commentary-errors").remove()
+  $("<%= commentable_selector %> form.commentary #commentary_body").val('')
+  $("<%= commentable_selector %> form.commentary").hide()
+  $("<%= commentable_selector %> .commentary-button").show()
+<% end %>

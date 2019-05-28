@@ -35,7 +35,7 @@ feature 'User can choose best answer for question', %q{
 
       scenario 'best solution answer moves to top of the answers list' do
         within(".answers") do
-          expect(first('.answer')).to have_content(answer_1.body)
+          expect(find('.answer')).to have_content(answer_1.body)
         end
       end
 

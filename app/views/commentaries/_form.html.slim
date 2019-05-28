@@ -1,0 +1,6 @@
+- commentable = resource.class.name.underscore
+= bootstrap_form_with model: [resource, resource.commentaries.new], class: ['commentary', 'hidden'],
+        html: { id: "commentary-for-#{commentable}-#{resource.id}" } do |form|
+
+  = form.text_field :body
+  = form.submit

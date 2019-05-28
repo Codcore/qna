@@ -76,6 +76,9 @@ en:
         create: "Create a new answer"
         update: "Update answer"
 
+      commentary:
+        create: "Add commentary"
+
     label:
       question:
         title: "Question title"
@@ -83,6 +86,9 @@ en:
 
       answer:
         body: "Answer text"
+
+      commentary:
+        body: "Commentary"
 
       link:
         name: "Link text"
