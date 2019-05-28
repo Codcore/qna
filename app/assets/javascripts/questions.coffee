@@ -8,7 +8,5 @@ App.cable.subscriptions.create('QuestionsChannel', {
   ,
 
   received: (data) ->
-    console.log(data)
-    console.log(JST["question"](data))
     $('table').append JST["question"](data)
 })
