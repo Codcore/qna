@@ -1,0 +1,3 @@
+$("#commentary-<%= @commentary.id %>").hide('slow').queue(function () {
+    $(this).remove();
+})

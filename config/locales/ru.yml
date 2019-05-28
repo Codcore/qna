@@ -79,6 +79,9 @@ ru:
         create: "Добавить ответ"
         update: "Изменить ответ"
 
+      commentary:
+        create: "Добавить комментарий"
+
     label:
       question:
         title: "Заголовок вопроса"
@@ -95,6 +98,8 @@ ru:
         name: "Название награды"
         image: "Значок награды"
 
+      commentary:
+        body: "Комментарий"
 
   activerecord:
     models:

@@ -6,6 +6,23 @@ $(document).on('turbolinks:load', function () {
         $('form#edit-answer-' + answerId).toggle()
     })
 
+    $('.answers').on('click', '.commentary-button', function (e) {
+        e.preventDefault();
+        $(this).hide();
+        var answerId = $(this).data('answerId');
+        $('form#commentary-for-answer-' + answerId).toggle()
+    })
+
+    $('.question .commentaries').on('click', '.commentary-button', function(e) {
+        var questionId;
+        e.preventDefault();
+        $(this).hide();
+        questionId = $(this).data('questionId');
+        console.log(questionId);
+        $('form#commentary-for-question-' + questionId).toggle();
+    });
+
+
     voteLinksAjaxHandler()
 
     App.cable.subscriptions.create('AnswersChannel', {
@@ -15,8 +32,6 @@ $(document).on('turbolinks:load', function () {
         ,
 
         received(data) {
-            console.log(data);
-            console.log(JST["answer"](data));
             if (data.answer.author_id != gon.user_id) {
               $(".answers").append(JST["answer"](data));
               voteLinksAjaxHandler()
@@ -28,8 +43,6 @@ $(document).on('turbolinks:load', function () {
 var voteLinksAjaxHandler = function () {
     $('.vote-link').on('ajax:success', function(e) {
         var votable = e.detail[0];
-        console.log(votable)
-        console.log('#' + votable['type'] +  '-' + votable['id'] + ' .' + votable['type'] + '-score')
         $('#' + votable['type'] +  '-' + votable['id'] + ' .' + votable['type'] + '-score').html(votable['score']);
     })
         .on('ajax:error', function (e) {

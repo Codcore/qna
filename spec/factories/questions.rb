@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :question, aliases: [:linkable] do
+  factory :question, aliases: [:linkable, :commentable] do
     body { "MyText" }
     association :author
 

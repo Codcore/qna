@@ -4,6 +4,8 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   belongs_to :author, class_name: 'User'
   has_many :links, dependent: :destroy, as: :linkable
+  has_many :commentaries, dependent: :destroy, as: :commentable
+
   has_one :reward, dependent: :destroy
 
   has_many_attached :files

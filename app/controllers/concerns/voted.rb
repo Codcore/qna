@@ -31,5 +31,4 @@ module Voted
   def set_votable
     @votable = model_klass.find(params[:id])
   end
-
 end
