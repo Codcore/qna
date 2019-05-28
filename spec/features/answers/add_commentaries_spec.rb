@@ -6,13 +6,13 @@ feature 'User can add commentaries to the answer', %q{
   I'd like to be able to add comments
 } do
 
+  given(:author) { create(:user) }
   given(:user) { create(:user) }
-  given(:another_user) { create(:user) }
-  given!(:question) { create(:question, author: user) }
+  given!(:question) { create(:question, author: author) }
   given!(:answer)   { create(:answer, question: question) }
 
   scenario 'User adds commentary', :js do
-    sign_in user
+    sign_in author
     visit question_path(question)
 
     within ".answers #answer-#{answer.id}" do
@@ -26,7 +26,7 @@ feature 'User can add commentaries to the answer', %q{
   end
 
   scenario 'User adds commentary with not enough length', :js do
-    sign_in user
+    sign_in author
     visit question_path(question)
 
     within ".answers #answer-#{answer.id}" do
@@ -65,7 +65,7 @@ feature 'User can add commentaries to the answer', %q{
     end
 
     scenario 'Non-author can not delete commentaries' do
-      sign_in another_user
+      sign_in user
       visit question_path(question)
 
       within ".answers #answer-#{answer.id} .commentaries" do
@@ -78,6 +78,46 @@ feature 'User can add commentaries to the answer', %q{
 
       within ".answers #answer-#{answer.id} .commentaries" do
         expect(page).not_to have_link('.delete-commentary-link')
+      end
+    end
+  end
+
+  context "multiple sessions", js: true do
+    scenario "commentary appears on another users's page" do
+      Capybara.using_session('user') do
+        sign_in user
+        visit question_path(question)
+      end
+
+      Capybara.using_session('author') do
+        sign_in author
+        visit question_path(question)
+      end
+
+      Capybara.using_session('guest') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('author') do
+        visit question_path(question)
+
+        within ".answers #answer-#{answer.id}" do
+          find(".commentary-button").click
+          fill_in 'Commentary', with: 'Answer commentary with enough length'
+          click_on 'Add commentary'
+        end
+      end
+
+      Capybara.using_session('user') do
+        within ".answers #answer-#{answer.id}" do
+          expect(page).to have_content 'Answer commentary with enough length'
+        end
+      end
+
+      Capybara.using_session('guest') do
+        expect(page).to have_content 'Answer commentary with enough length'
+
+        expect(page).not_to have_link '.delete-commentary-link'
       end
     end
   end

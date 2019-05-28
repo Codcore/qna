@@ -7,6 +7,8 @@ class CommentariesController < ApplicationController
   before_action :find_commentary, only: [:update, :destroy]
   before_action :find_commentable, only: [:create]
 
+  after_action :publish_commentary, only: [:create]
+
   def create
     @commentary = @commentable.commentaries.new(commentary_params)
     @commentary.user_id = current_user.id
@@ -30,5 +32,11 @@ class CommentariesController < ApplicationController
 
   def commentary_params
     params.require(:commentary).permit(:body)
+  end
+
+  def publish_commentary
+    return if @commentary.errors.any?
+    question_id = @commentable.is_a?(Question) ? @commentable.id : @commentable.question.id
+    ActionCable.server.broadcast("commentaries_for_question_#{question_id}", commentary: @commentary)
   end
 end
