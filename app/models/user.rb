@@ -10,7 +10,8 @@ class User < ApplicationRecord
          :registerable,
          :recoverable,
          :rememberable,
-         :validatable
+         :validatable,
+         :omniauthable, omniauth_providers: [:github]
 
   def authorized_for?(resource)
     id == resource.author_id

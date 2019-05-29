@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'rewards/index'
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks' }
   root 'questions#index'
 
   delete '/attachments/:id', to: 'attachments#destroy', as: 'attachment_delete'
