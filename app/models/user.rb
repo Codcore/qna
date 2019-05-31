@@ -13,7 +13,13 @@ class User < ApplicationRecord
          :validatable,
          :omniauthable, omniauth_providers: [:github]
 
+  has_many :authorizations, dependent: :destroy
+
   def authorized_for?(resource)
     id == resource.author_id
+  end
+
+  def self.find_for_oauth(auth)
+    Services::FindForOAuth.new(auth).call
   end
 end
