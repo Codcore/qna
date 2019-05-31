@@ -11,7 +11,7 @@ class User < ApplicationRecord
          :recoverable,
          :rememberable,
          :validatable,
-         :omniauthable, omniauth_providers: [:github]
+         :omniauthable, omniauth_providers: [:github, :twitter, :google_oauth2]
 
   has_many :authorizations, dependent: :destroy
 
