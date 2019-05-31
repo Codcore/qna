@@ -66,6 +66,7 @@ RSpec.configure do |config|
   config.include ControllerHelpers, type: :controller
   config.include FeatureHelpers, type: :feature
   config.extend WithModel
+  config.include(OmniauthMacros)
 
   Capybara.javascript_driver = :selenium_chrome_headless
 
@@ -80,3 +81,5 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+OmniAuth.config.test_mode = true

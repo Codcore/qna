@@ -19,6 +19,8 @@ gem 'jquery-rails'
 gem 'octicons_helper'
 gem 'omniauth'
 gem 'omniauth-github'
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
