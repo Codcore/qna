@@ -9,6 +9,8 @@ class CommentariesController < ApplicationController
 
   after_action :publish_commentary, only: [:create]
 
+  authorize_resource
+
   def create
     @commentary = @commentable.commentaries.new(commentary_params)
     @commentary.user_id = current_user.id

@@ -7,15 +7,13 @@ class QuestionsController < ApplicationController
   expose :answer, -> { question.answers.new }
 
   before_action :authenticate_user!, except: [:index, :show]
-  # before_action -> { authorize_author_for!(question) }, only: [:update, :destroy]
   before_action -> { question.build_reward }, only: [:new]
   before_action :set_question_data_for_client, only: [:show]
 
   after_action :publish_question, only: [:create]
 
-  # authorize_resource
-
   def create
+    authorize! :create, question
     question.author = current_user
     if question.save
       flash[:success] = t('.flash_messages.question.created')
@@ -26,6 +24,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    authorize! :update, question
     if question.update(question_params)
       redirect_to question
     else
@@ -34,6 +33,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, question
     question.destroy
     redirect_to questions_path
   end
