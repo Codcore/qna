@@ -6,10 +6,6 @@ class OAuthCallbacksController < Devise::OmniauthCallbacksController
     authorize_with('Github')
   end
 
-  def twitter
-    authorize_with('Twitter')
-  end
-
   def google_oauth2
     authorize_with('Google')
   end
@@ -23,12 +19,6 @@ class OAuthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: provider) if is_navigational_format?
     else
       redirect_to root_path, alert: 'Something went wrong'
-    end
-  end
-
-  def check_email
-    unless OmniAuth::AuthHash.new(request.env['omniauth.auth']).info[:email]
-      render 'shared/email_form'
     end
   end
 end
