@@ -118,10 +118,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect { patch :update, params: { id: question, question: attributes_for(:question) } }.not_to change(Question, :count)
       end
 
-      it 'should have status 403 Forbidden' do
+      it 'should redirect to the root url' do
         patch :update, params: { id: question, question: attributes_for(:question) }
 
-        expect(response).to have_http_status(403)
+        expect(response).to redirect_to root_url
       end
     end
   end
@@ -153,10 +153,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect { delete :destroy, params: { id: question } }.to_not change(Question, :count)
       end
 
-      it 'should have status 403 Forbidden' do
+      it 'should redirect to the root url' do
         delete :destroy, params: { id: question }
 
-        expect(response).to have_http_status(403)
+        expect(response).to redirect_to root_url
       end
     end
   end

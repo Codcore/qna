@@ -48,15 +48,15 @@ RSpec.describe OAuthCallbacksController, type: :controller do
     end
   end
 
-  describe 'Twitter' do
-    let(:oauth_data) { { 'provider' => 'twitter', 'uid' => 123 } }
+  describe 'Google OAuth2' do
+    let(:oauth_data) { { 'provider' => 'google_oauth2', 'uid' => 123 } }
 
     it 'finds user from oauth data' do
       allow(request.env).to receive(:[]).and_call_original
       allow(request.env).to receive(:[]).with('omniauth.auth').and_return(oauth_data)
       expect(User).to receive(:find_for_oauth).with(oauth_data)
 
-      get :twitter
+      get :google_oauth2
     end
 
     context 'user exists' do
@@ -64,7 +64,7 @@ RSpec.describe OAuthCallbacksController, type: :controller do
 
       before do
         allow(User).to receive(:find_for_oauth).and_return(user)
-        get :twitter
+        get :google_oauth2
       end
 
       it 'logins user' do
@@ -76,14 +76,18 @@ RSpec.describe OAuthCallbacksController, type: :controller do
       end
     end
 
-    context 'user does not exists' do
+    context 'user does not exist' do
       before do
         allow(User).to receive(:find_for_oauth)
-        get :twitter
+        get :google_oauth2
       end
 
-      it 'redirects to the email form' do
+      it 'redirects to the root path if user does not exist' do
+        expect(response).to redirect_to root_path
+      end
 
+      it 'does not login user' do
+        expect(subject.current_user).to_not be
       end
     end
   end

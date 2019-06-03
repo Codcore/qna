@@ -7,6 +7,7 @@ module Voted
   end
 
   def up_vote
+    authorize! :up_vote, @votable
     @votable.up_vote!(current_user)
 
     respond_to do |format|
@@ -15,6 +16,7 @@ module Voted
   end
 
   def down_vote
+    authorize! :down_vote, @votable
     @votable.down_vote!(current_user)
 
     respond_to do |format|

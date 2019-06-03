@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
     gon.user_id = current_user.id if user_signed_in?
   end
 
-  # rescue_from CanCan::AccessDenied do |exception|
-  #   redirect_to root_url, alert: exception.message
-  # end
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
+  end
 
   # check_authorization
 end
