@@ -1,0 +1,1 @@
+div class="alert alert-danger alert-dismissible fade show mt-3" #{@message}

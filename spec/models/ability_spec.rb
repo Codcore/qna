@@ -50,8 +50,13 @@ RSpec.describe Ability do
 
     it { should be_able_to :up_vote, create(:question) }
     it { should be_able_to :up_vote, create(:answer) }
+    it { should_not be_able_to :up_vote, create(:answer, author: user) }
+    it { should_not be_able_to :up_vote, create(:question, author: user) }
 
     it { should be_able_to :down_vote, create(:question) }
     it { should be_able_to :down_vote, create(:answer) }
+    it { should_not be_able_to :down_vote, create(:answer, author: user) }
+    it { should_not be_able_to :down_vote, create(:question, author: user) }
+
   end
 end
