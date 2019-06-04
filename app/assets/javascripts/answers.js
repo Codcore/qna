@@ -46,5 +46,9 @@ var voteLinksAjaxHandler = function () {
         $('#' + votable['type'] +  '-' + votable['id'] + ' .' + votable['type'] + '-score').html(votable['score']);
     })
         .on('ajax:error', function (e) {
+            data = e.detail[0]
+            console.log(data)
+            console.log(JST["403_error"](data))
+            $(".container").prepend(JST["403_error"](data));
         })
 }

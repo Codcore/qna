@@ -8,8 +8,6 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   after_action :publish_answer, only: [:create]
 
-  authorize_resource
-
   def create
     authorize! :create, answer
     answer.author = current_user

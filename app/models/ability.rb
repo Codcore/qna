@@ -28,9 +28,19 @@ class Ability
     can :create, [Question, Answer, Commentary]
     can [:update, :destroy], [Question, Answer], author_id: user.id
     can :destroy, Commentary, author_id: user.id
-    can [:up_vote, :down_vote], [Question, Answer]
-    can :best_solution, Answer do |answer|
-      answer.question.author_id == user.id
+    can :destroy, Commentary, author_id: user.id
+    can [:up_vote, :down_vote], [Question, Answer] do |object|
+      !author_of?(object)
     end
+
+    can :best_solution, Answer do |answer|
+      author_of?(answer.question)
+    end
+  end
+
+  private
+
+  def author_of?(object)
+    object.author_id == user.id
   end
 end

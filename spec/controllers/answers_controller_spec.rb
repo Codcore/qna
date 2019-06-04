@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+  render_views
+
   let(:user) { create(:user)}
   let(:another_user) { create(:user)}
 
@@ -84,7 +86,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'should redirect to the root url' do
         patch :update, params: { id: answer, answer: attributes_for(:answer) }, format: :js
-        expect(response).to redirect_to root_url
+        expect(response.body).to have_content("You\\'re not authorized for this request")
       end
     end
   end
@@ -114,7 +116,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'should redirect to the root url' do
         delete :destroy, params: { id: answer }, format: :js
 
-        expect(response).to redirect_to root_url
+        expect(response.body).to have_content("You\\'re not authorized for this request")
       end
     end
   end
@@ -157,7 +159,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'should redirect to the root url' do
         post :best_solution, params: { id: answer }, format: :js
-        expect(response).to redirect_to root_url
+        expect(response.body).to have_content("You\\'re not authorized for this request")
       end
     end
   end
