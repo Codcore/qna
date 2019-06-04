@@ -84,7 +84,8 @@ RSpec.describe AnswersController, type: :controller do
         expect { patch :update, params: { id: answer, answer: attributes_for(:answer) }, format: :js }.not_to change(question.answers, :count)
       end
 
-      it 'should redirect to the root url' do
+      it 'should render Not authorized error message' do
+
         patch :update, params: { id: answer, answer: attributes_for(:answer) }, format: :js
         expect(response.body).to have_content("You\\'re not authorized for this request")
       end
@@ -113,7 +114,7 @@ RSpec.describe AnswersController, type: :controller do
         expect { delete :destroy, params: { id: answer}, format: :js }.to_not change(question.answers, :count)
       end
 
-      it 'should redirect to the root url' do
+      it 'should render Not authorized error message' do
         delete :destroy, params: { id: answer }, format: :js
 
         expect(response.body).to have_content("You\\'re not authorized for this request")
@@ -157,7 +158,7 @@ RSpec.describe AnswersController, type: :controller do
         expect(controller.answer).to_not be_best_solution
       end
 
-      it 'should redirect to the root url' do
+      it 'should render Not authorized error message' do
         post :best_solution, params: { id: answer }, format: :js
         expect(response.body).to have_content("You\\'re not authorized for this request")
       end
