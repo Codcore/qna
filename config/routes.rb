@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  use_doorkeeper
+
   get 'rewards/index'
 
   devise_for :users, controllers: { omniauth_callbacks: 'o_auth_callbacks' }
