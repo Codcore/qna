@@ -22,6 +22,7 @@ gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'cancancan'
+gem 'doorkeeper'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
