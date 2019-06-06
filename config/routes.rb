@@ -8,6 +8,16 @@ Rails.application.routes.draw do
 
   delete '/attachments/:id', to: 'attachments#destroy', as: 'attachment_delete'
 
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: [] do
+        get :me, on: :collection
+      end
+
+      resources :questions, only: [:index]
+    end
+  end
+
   concern :votable do
     member do
       post 'up_vote'
