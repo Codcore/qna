@@ -18,5 +18,12 @@ FactoryBot.define do
     trait :with_files do
       files { fixture_file_upload(Rails.root.join('spec/rails_helper.rb')) }
     end
+
+    factory :answer_with_links_and_comments do
+      after :create do |answer|
+        create_list(:link, 3, linkable: answer)
+        create_list(:commentary, 3, commentable: answer)
+      end
+    end
   end
 end
