@@ -4,6 +4,7 @@ module ApiHelpers
   end
 
   def do_request(method, path, options ={})
+    options[:headers] = {} if method == :post || :patch || :delete
     send method, path, options
   end
 end
