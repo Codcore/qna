@@ -146,10 +146,10 @@ describe 'Questions API', type: :request do
           end.to_not change(Question, :count)
         end
 
-        it 'returns 400 status' do
+        it 'returns 422 status' do
           post '/api/v1/questions/', params: { question: { body: 'Some test body for question', title: ''},
                                                access_token: access_token.token }
-          expect(response).to have_http_status :bad_request
+          expect(response).to have_http_status :unprocessable_entity
         end
       end
     end
@@ -181,10 +181,10 @@ describe 'Questions API', type: :request do
 
       context 'for invalid question' do
 
-        it 'returns 400 status' do
+        it 'returns 422 status' do
           patch "/api/v1/questions/#{question.id}", params: { question: { body: 'Some test body for question', title: ''},
                                                               access_token: access_token.token }
-          expect(response).to have_http_status :bad_request
+          expect(response).to have_http_status :unprocessable_entity
         end
 
         it 'does not change question' do

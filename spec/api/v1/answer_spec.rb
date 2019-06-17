@@ -105,10 +105,10 @@ describe 'Answer API', type: :request do
           end.to_not change(Answer, :count)
         end
 
-        it 'returns 400 status' do
+        it 'returns 422 status' do
           post "/api/v1/questions/#{question.id}/answers/", params: { answer: { body: '' }, question_id: question,
                                                access_token: access_token.token }
-          expect(response).to have_http_status :bad_request
+          expect(response).to have_http_status :unprocessable_entity
         end
       end
     end
