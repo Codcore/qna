@@ -15,4 +15,12 @@ class Question < ApplicationRecord
 
   validates :title, :body, presence: true
   validates :title, uniqueness: true
+
+  after_create :calculate_reputation
+
+  private
+
+  def calculate_reputation
+    ReputationJob.perform_later(self)
+  end
 end
