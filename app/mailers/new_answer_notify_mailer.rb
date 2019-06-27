@@ -1,10 +1,10 @@
 class NewAnswerNotifyMailer < ApplicationMailer
 
-  def notify_email(answer)
+  def notify_email(answer, user)
     @answer   = answer
     @question = Question.find(@answer.question_id)
-    @author   = User.find(@question.author_id)
+    @author   = user
 
-    mail to: answer.question.author.email
+    mail to: user.email
   end
 end

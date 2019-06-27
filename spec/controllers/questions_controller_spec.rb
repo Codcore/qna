@@ -160,5 +160,41 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
+
+  describe 'POST #subscribe' do
+    let!(:question) { create(:question, author: user) }
+
+    context 'by user' do
+      before { login(user) }
+
+      it 'should subscribe user for questions updates' do
+        expect { post :subscribe, params: { id: question } }.to change(question.subscribers, :count).by(1)
+      end
+    end
+
+    context 'by guest' do
+      it 'should not subscribe user for questions updates' do
+        expect { post :subscribe, params: { id: question } }.to_not change(question.subscribers, :count)
+      end
+    end
+  end
+
+  describe 'DELETE #unsubscribe' do
+    let!(:question) { create(:question_with_subscribers, author: user) }
+
+    context 'by user' do
+      before { login(user) }
+
+      it 'should unsubscribe user for questions updates' do
+        expect { delete :unsubscribe, params: { id: question } }.to change(question.subscribers, :count).by(-1)
+      end
+    end
+
+    context 'by guest' do
+      it 'should not unsubscribe user for questions updates' do
+        expect { delete :unsubscribe, params: { id: question } }.to_not change(question.subscribers, :count)
+      end
+    end
+  end
 end
 
