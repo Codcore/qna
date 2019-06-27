@@ -36,6 +36,8 @@ class Ability
     can :best_solution, Answer do |answer|
       author_of?(answer.question)
     end
+
+    can [:subscribe, :unsubscribe], Question
   end
 
   private

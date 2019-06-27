@@ -19,5 +19,11 @@ FactoryBot.define do
         create_list(:commentary, 3, commentable: question)
       end
     end
+
+    factory :question_with_subscribers do
+      after :create do |question|
+        create_list(:question_subscription, 3, question: question)
+      end
+    end
   end
 end

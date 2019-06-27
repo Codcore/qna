@@ -6,7 +6,7 @@ RSpec.describe Services::NewAnswerNotify do
   let!(:answer) { create(:answer, question: question) }
 
   it "sends notify to answer's question user" do
-    expect(NewAnswerNotifyMailer).to receive(:notify_email).with(answer).and_call_original
-    subject.send_notify(answer)
+    expect(NewAnswerNotifyMailer).to receive(:notify_email).with(answer, question.author).and_call_original
+    subject.send_notify(answer, question.author)
   end
 end

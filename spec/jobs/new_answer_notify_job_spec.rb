@@ -10,6 +10,6 @@ RSpec.describe NewAnswerNotifyJob, type: :job do
 
   it 'calls Service::NewAnswerNotify#send_notify' do
     expect(service).to receive(:send_notify)
-    NewAnswerNotifyJob.perform_now(answer)
+    NewAnswerNotifyJob.perform_now(answer, answer.question.author)
   end
 end

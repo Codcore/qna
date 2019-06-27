@@ -43,6 +43,10 @@ Rails.application.routes.draw do
         post 'best_solution'
       end
     end
+    member do
+      post 'subscribe'
+      delete 'unsubscribe'
+    end
   end
 
   mount ActionCable.server => '/cable'

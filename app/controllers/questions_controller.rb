@@ -38,6 +38,16 @@ class QuestionsController < ApplicationController
     redirect_to questions_path
   end
 
+  def subscribe
+    authorize! :subscribe, question
+    question.subscribers.push(current_user)
+  end
+
+  def unsubscribe
+    authorize! :unsubscribe, question
+    question.subscribers.delete(current_user)
+  end
+
   private
 
   def set_question_data_for_client

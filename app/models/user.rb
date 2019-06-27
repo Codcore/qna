@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :answers, foreign_key: :author_id
   has_many :rewards
   has_many :votes, dependent: :destroy
+  has_many :question_subscriptions
+  has_many :subscribed_questions, through: :question_subscriptions, source: :question
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
