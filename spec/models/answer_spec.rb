@@ -57,4 +57,22 @@ RSpec.describe Answer, type: :model do
   end
 
   it_behaves_like 'votable'
+
+  describe 'notify answers question author for created answer' do
+    let!(:question) { create(:question) }
+    let(:answer) { build(:answer, question: question) }
+
+    it 'calls NewAnswerNotifyJob#perform' do
+      expect(NewAnswerNotifyJob).to receive(:perform_later).with(answer)
+      answer.save!
+    end
+  end
+
+  describe 'reputation' do
+
+    it 'calls ReputationJob#perform_later' do
+      expect(ReputationJob).to receive(:perform_later).with(question)
+      question.save!
+    end
+  end
 end
