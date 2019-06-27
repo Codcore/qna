@@ -15,6 +15,8 @@ class Answer < ApplicationRecord
 
   default_scope { order(best_solution: :desc) }
 
+  after_create :send_new_answer_notify
+
   def best_solution!
     best_solution_answer = question.answers.find_by(best_solution: true)
     reward = question.reward
@@ -25,5 +27,11 @@ class Answer < ApplicationRecord
       author.rewards << reward if reward
       author.save!
     end
+  end
+
+  private
+
+  def send_new_answer_notify
+    NewAnswerNotifyJob.perform_later(self)
   end
 end
