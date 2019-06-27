@@ -13,7 +13,6 @@ class AnswersController < ApplicationController
     answer.author = current_user
     answer.question = question
     answer.save
-    NewAnswerNotifyJob.perform_later(answer, answer.question.author)
 
     answer.question.subscribers.each do |subscriber|
       NewAnswerNotifyJob.perform_later(answer, subscriber)
