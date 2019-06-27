@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
     authorize! :create, question
     question.author = current_user
     if question.save
+      question.subscribers.push(current_user)
       flash[:success] = t('.flash_messages.question.created')
       redirect_to questions_path
     else
