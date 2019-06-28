@@ -20,9 +20,9 @@ FactoryBot.define do
       end
     end
 
-    factory :question_with_subscribers do
+    factory :question_with_subscription do
       after :create do |question|
-        create_list(:question_subscription, 3, question: question)
+        create_list(:subscription, 3, question: question)
       end
     end
   end

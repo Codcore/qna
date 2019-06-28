@@ -3,8 +3,8 @@ class User < ApplicationRecord
   has_many :answers, foreign_key: :author_id
   has_many :rewards
   has_many :votes, dependent: :destroy
-  has_many :question_subscriptions
-  has_many :subscribed_questions, through: :question_subscriptions, source: :question
+  has_many :subscriptions
+  has_many :subscribed_questions, through: :subscriptions, source: :question
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -19,6 +19,10 @@ class User < ApplicationRecord
 
   def authorized_for?(resource)
     id == resource.author_id
+  end
+
+  def subscribed_for?(question)
+    subscribed_questions.find_by(id: question.id).present?
   end
 
   def self.find_for_oauth(auth)

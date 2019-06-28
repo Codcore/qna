@@ -67,12 +67,4 @@ RSpec.describe Answer, type: :model do
       answer.save!
     end
   end
-
-  describe 'reputation' do
-
-    it 'calls ReputationJob#perform_later' do
-      expect(ReputationJob).to receive(:perform_later).with(question)
-      question.save!
-    end
-  end
 end

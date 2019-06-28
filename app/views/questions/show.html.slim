@@ -22,10 +22,10 @@
   div class="commentaries mt-2"
     - if user_signed_in?
       = link_to 'Add commentary', '#', data: { question_id: question.id }, class: "btn btn-light commentary-button mb-4"
-      - if current_user.subscribed_questions.find_by(id: question.id)
-        = link_to 'Unsubscribe', unsubscribe_question_path(question), method: :delete, class: "btn btn-danger unsubscription-button mb-4", remote: true
+      - if current_user.subscribed_for?(question)
+        = link_to 'Unsubscribe', question_subscription_path(question), method: :delete, class: "btn btn-danger unsubscription-button mb-4"
       - else
-        = link_to 'Subscribe', subscribe_question_path(question), method: :post, class: "btn btn-success subscription-button mb-4", remote: true
+        = link_to 'Subscribe', question_subscriptions_path(question), method: :post, class: "btn btn-success subscription-button mb-4"
     = render question.commentaries
 
     = render 'commentaries/form', resource: question

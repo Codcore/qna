@@ -8,8 +8,8 @@ class Question < ApplicationRecord
 
   has_one :reward, dependent: :destroy
 
-  has_many :question_subscriptions
-  has_many :subscribers, through: :question_subscriptions, source: :user
+  has_many :subscriptions
+  has_many :subscribers, through: :subscriptions, source: :user
 
   has_many_attached :files
 
