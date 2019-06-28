@@ -10,8 +10,8 @@ RSpec.describe User, type: :model do
   it { should have_many :rewards }
   it { should have_many :votes }
   it { should have_many(:authorizations).dependent(:destroy) }
-  it { should have_many(:subscribed_questions).through(:question_subscriptions) }
-  it { should have_many(:question_subscriptions) }
+  it { should have_many(:subscribed_questions).through(:subscriptions) }
+  it { should have_many(:subscriptions) }
 
   it 'should determine if user is an author of resource' do
     expect(user.authorized_for?(question)).to eq true

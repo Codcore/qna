@@ -119,14 +119,6 @@ ActiveRecord::Schema.define(version: 2019_06_27_084742) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
-  create_table "question_subscriptions", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "question_id"
-    t.index ["question_id"], name: "index_question_subscriptions_on_question_id"
-    t.index ["user_id", "question_id"], name: "index_question_subscriptions_on_user_id_and_question_id", unique: true
-    t.index ["user_id"], name: "index_question_subscriptions_on_user_id"
-  end
-
   create_table "questions", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -144,6 +136,14 @@ ActiveRecord::Schema.define(version: 2019_06_27_084742) do
     t.bigint "user_id"
     t.index ["question_id"], name: "index_rewards_on_question_id"
     t.index ["user_id"], name: "index_rewards_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "question_id"
+    t.index ["question_id"], name: "index_subscriptions_on_question_id"
+    t.index ["user_id", "question_id"], name: "index_subscriptions_on_user_id_and_question_id", unique: true
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
