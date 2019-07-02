@@ -22,7 +22,7 @@ class User < ApplicationRecord
   end
 
   def subscribed_for?(question)
-    subscribed_questions.find_by(id: question.id).present?
+    subscribed_questions.where(id: question.id).exists?
   end
 
   def self.find_for_oauth(auth)
