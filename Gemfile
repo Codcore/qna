@@ -28,6 +28,9 @@ gem 'oj'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'whenever', require: false
+gem 'mysql2', '~> 0.3.18'
+gem 'thinking-sphinx'
+gem 'will_paginate', '~> 3.1.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -88,6 +91,7 @@ group :test do
   gem 'launchy'
   gem 'faker'
   gem 'with_model'
+  gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
