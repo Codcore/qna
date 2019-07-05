@@ -1,0 +1,7 @@
+- if @search_results
+  ul
+  - @search_results.each do |item|
+    li = search_result_item_url_for(item)
+  = will_paginate @search_results
+- else
+  p No search results for "#{@search_text}"

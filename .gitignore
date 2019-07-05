@@ -74,4 +74,8 @@ bower.json
 # Ignore node_modules
 node_modules/
 
+dump.rdb
+sphinxdata
+config/*.sphinx.conf
+db/sphinx
 
