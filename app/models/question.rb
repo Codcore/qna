@@ -21,6 +21,10 @@ class Question < ApplicationRecord
 
   after_create :calculate_reputation
 
+  def to_s
+    self.title
+  end
+
   private
 
   def calculate_reputation

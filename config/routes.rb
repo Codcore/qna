@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   use_doorkeeper
 
   get 'rewards/index'
+  post 'search', to: 'search#create'
 
   devise_for :users, controllers: { omniauth_callbacks: 'o_auth_callbacks' }
   root 'questions#index'
