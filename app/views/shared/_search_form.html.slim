@@ -1,5 +1,5 @@
 = bootstrap_form_tag(url: '/search', method: 'post', layout: :inline) do |form|
-  = form.text_field :search, class: 'mr-sm-2 col-xs-4', size: '60'
+  = form.text_field :search_text, class: 'mr-sm-2 col-xs-4', size: '60'
   = form.radio_button :type, 'question', class: 'mr-sm-2', label: 'Questions'
   = form.radio_button :type, 'answer', class: 'mr-sm-2', label: 'Answers'
   = form.radio_button :type, 'commentary', class: 'mr-sm-2', label: 'Commentaries'
