@@ -63,6 +63,7 @@ gem 'aws-sdk-s3'
 gem 'cocoon'
 gem 'skim'
 gem 'gon'
+gem 'mini_racer'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
