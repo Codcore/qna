@@ -5,7 +5,7 @@
 
 server "139.59.139.107", user: "deployer", roles: %w{app db web}, primary: true
 set :rails_env, "production"
-set :rack_env, rails_env
+set :rack_env, :rails_env
 
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
