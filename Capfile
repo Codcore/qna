@@ -9,6 +9,7 @@ require "capistrano/rails"
 require "capistrano/passenger"
 require "capistrano/rails/assets"
 require "capistrano/rails/migrations"
+require "capistrano/rails/sidekiq"
 
 # Load the SCM plugin appropriate to your project:
 #
