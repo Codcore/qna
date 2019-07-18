@@ -1,11 +1,12 @@
-table class ="table"
-  thead
-    tr
-      th scope="col" class="text-center" colspan="#{user_signed_in? ? 2 : 3 }" = t '.table.header.question'
-      - if user_signed_in? && current_user&.questions.any?
-        th scope="col" class="text-center" colspan="2" = t '.table.header.actions'
+- cache collection_cache_key_for(Question) do
+  table class ="table"
+    thead
+      tr
+        th scope="col" class="text-center" colspan="#{user_signed_in? ? 2 : 3 }" = t '.table.header.question'
+        - if user_signed_in? && current_user&.questions.any?
+          th scope="col" class="text-center" colspan="2" = t '.table.header.actions'
 
-  tbody
+    tbody
 
-    = render questions
+      = render questions
 

@@ -1,81 +1,82 @@
-div class='answer' id='answer-#{answer.id}'
-  div class='card mt-2 mb-2 #{answer.best_solution? ? 'border-success bg-success text-white' : ''}'
-    div class='card-header bg-white'
-      small class='text-muted' = answer.created_at.strftime('%B %e at %l:%M %p')
+- cache answer do
+  div class='answer' id='answer-#{answer.id}'
+    div class='card mt-2 mb-2 #{answer.best_solution? ? 'border-success bg-success text-white' : ''}'
+      div class='card-header bg-white'
+        small class='text-muted' = answer.created_at.strftime('%B %e at %l:%M %p')
 
-      = render 'shared/voting', resource: answer
+        = render 'shared/voting', resource: answer
 
-      - if answer.best_solution
-        br
-        span class='badge badge-success' = t('answers.answer.best_solution_button').upcase
+        - if answer.best_solution
+          br
+          span class='badge badge-success' = t('answers.answer.best_solution_button').upcase
 
-    div class='card-body'
-      p class='card-text answer-body' = answer.body
+      div class='card-body'
+        p class='card-text answer-body' = answer.body
 
-    - if answer.files.attached?
-      ul class='list-group m-2'
-        - answer.files.each do |attachment|
-          = render template: 'shared/_attachment', locals: { attachment: attachment, resource: answer }
+      - if answer.files.attached?
+        ul class='list-group m-2'
+          - answer.files.each do |attachment|
+            = render 'shared/attachment', attachment: attachment, resource: answer
 
-    = render 'shared/links', resource: answer
+      = render 'shared/links', resource: answer
 
-    - if current_user&.authorized_for?(answer)
+      - if current_user&.authorized_for?(answer)
 
-      div class='card-footer bg-white d-flex flex-row-reverse'
-        ul class='nav nav-pills'
+        div class='card-footer bg-white d-flex flex-row-reverse'
+          ul class='nav nav-pills'
 
-          - unless answer.best_solution
+            - unless answer.best_solution
+              = render 'answers/best_solution_link', answer: answer
+
+            li class='nav-item' = link_to t('.edit_button'),
+                    '#',
+                    class: 'nav-link edit-answer-link',
+                    data: { answer_id: answer.id}
+
+            li class='nav-item' = link_to t('.delete_button'), answer_path(answer),
+                    method: :delete,
+                    remote: true,
+                    data: { confirm: t('questions.question.sure')},
+                    class: 'nav-link text-danger'
+
+      - elsif current_user&.authorized_for?(answer.question) && !answer.best_solution
+
+        div class='card-footer bg-white d-flex flex-row-reverse'
+          ul class='nav nav-pills'
             = render 'answers/best_solution_link', answer: answer
 
-          li class='nav-item' = link_to t('.edit_button'),
-                  '#',
-                  class: 'nav-link edit-answer-link',
-                  data: { answer_id: answer.id}
-
-          li class='nav-item' = link_to t('.delete_button'), answer_path(answer),
-                  method: :delete,
-                  remote: true,
-                  data: { confirm: t('questions.question.sure')},
-                  class: 'nav-link text-danger'
-
-    - elsif current_user&.authorized_for?(answer.question) && !answer.best_solution
-
-      div class='card-footer bg-white d-flex flex-row-reverse'
-        ul class='nav nav-pills'
-          = render 'answers/best_solution_link', answer: answer
 
 
 
+    = bootstrap_form_with model: answer, class: :hidden, html: { id: "edit-answer-#{answer.id}" } do |form|
+      .answer-errors
+        = render 'shared/errors', resource: answer
 
-  = bootstrap_form_with model: answer, class: :hidden, html: { id: "edit-answer-#{answer.id}" } do |form|
-    .answer-errors
-      = render 'shared/errors', resource: answer
+      .field
+      = form.text_area :body
 
-    .field
-    = form.text_area :body
+      .field
+      = form.file_field :files, multiple: true, direct_upload: true
 
-    .field
-    = form.file_field :files, multiple: true, direct_upload: true
+      div class='col-11'
+        div class='card'
+          .card-header = "#{t('questions.form.link_form.header')}:"
+          .card-body
+            #links
+              = form.fields_for :links do |f|
+                = render 'link_fields', f: f
 
-    div class='col-11'
-      div class='card'
-        .card-header = "#{t('questions.form.link_form.header')}:"
-        .card-body
-          #links
-            = form.fields_for :links do |f|
-              = render 'link_fields', f: f
+            .links
+              strong
+                = link_to_add_association octicon('plus', fill: :green, class: 'mr-2') + t('answers.form.add_link'), form, :links, class: 'text-success'
 
-          .links
-            strong
-              = link_to_add_association octicon('plus', fill: :green, class: 'mr-2') + t('answers.form.add_link'), form, :links, class: 'text-success'
-
-      br
-    = form.submit
+        br
+      = form.submit
 
 
-  div class="commentaries"
-    - if user_signed_in?
-      = link_to 'Add commentary', '#', data: { answer_id: answer.id }, class: "btn btn-light commentary-button mb-2"
-    = render answer.commentaries
+    div class="commentaries"
+      - if user_signed_in?
+        = link_to 'Add commentary', '#', data: { answer_id: answer.id }, class: "btn btn-light commentary-button mb-2"
+      = render answer.commentaries
 
-  = render 'commentaries/form', resource: answer
+    = render 'commentaries/form', resource: answer

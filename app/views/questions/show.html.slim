@@ -1,32 +1,33 @@
-.question id="question-#{question.id}"
-  div class='card mt-3'
-    div class='card-header bg-white'
-      = render 'shared/voting', resource: question
-      h4 class='card-title' = question.title
+- cache question do
+  .question id="question-#{question.id}"
+    div class='card mt-3'
+      div class='card-header bg-white'
+        = render 'shared/voting', resource: question
+        h4 class='card-title' = question.title
 
-    div class='card-body'
-      p class='card-text question-body' = question.body
-      - if question.files.attached?
-        - question.files.each do |attachment|
-          = render template: 'shared/_attachment', locals: { attachment: attachment, resource: question }
+      div class='card-body'
+        p class='card-text question-body' = question.body
+        - if question.files.attached?
+          - question.files.each do |attachment|
+            = render 'shared/attachment', attachment: attachment, resource: question
 
-      = render 'shared/links', resource: question
+        = render 'shared/links', resource: question
 
 
-    - if current_user&.authorized_for?(question)
-      div class='card-footer bg-white d-flex flex-row-reverse'
-        ul class='nav nav-pills card-header-pills'
-          li class='nav-item' = link_to t('.edit_button'), edit_question_path(question), class: 'nav-link'
-          li class='nav-item' = link_to t('.delete_button'), question_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
+      - if current_user&.authorized_for?(question)
+        div class='card-footer bg-white d-flex flex-row-reverse'
+          ul class='nav nav-pills card-header-pills'
+            li class='nav-item' = link_to t('.edit_button'), edit_question_path(question), class: 'nav-link'
+            li class='nav-item' = link_to t('.delete_button'), question_path(question), method: :delete, data: { confirm: t('questions.question.sure')}, class: 'nav-link text-danger'
 
-  div class="commentaries mt-2"
-    - if user_signed_in?
-      = link_to 'Add commentary', '#', data: { question_id: question.id }, class: "btn btn-light commentary-button mb-4"
-      - if current_user.subscribed_for?(question)
-        = link_to 'Unsubscribe', question_subscription_path(question), method: :delete, class: "btn btn-danger unsubscription-button mb-4"
-      - else
-        = link_to 'Subscribe', question_subscriptions_path(question), method: :post, class: "btn btn-success subscription-button mb-4"
-    = render question.commentaries
+    div class="commentaries mt-2"
+      - if user_signed_in?
+        = link_to 'Add commentary', '#', data: { question_id: question.id }, class: "btn btn-light commentary-button mb-4"
+        - if current_user.subscribed_for?(question)
+          = link_to 'Unsubscribe', question_subscription_path(question), method: :delete, class: "btn btn-danger unsubscription-button mb-4"
+        - else
+          = link_to 'Subscribe', question_subscriptions_path(question), method: :post, class: "btn btn-success subscription-button mb-4"
+      = render question.commentaries
 
     = render 'commentaries/form', resource: question
     br
@@ -42,4 +43,4 @@ div class='mt-3 answers'
 
 - if user_signed_in?
 
-  = render template: 'answers/new'
+  = render 'answers/new'
