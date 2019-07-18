@@ -1,6 +1,6 @@
 class Commentary < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: 'user_id'
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, touch: true
 
   default_scope { order(id: :asc) }
 
