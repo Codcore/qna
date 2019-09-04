@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+QnA is clone of StackOverflow, written in Ruby On Rails. Used technologies:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Ruby 2.5
+2. Rails 5.2.3
+3. ActionStorage
+4. ActionCable
+5. Sphinx
+6. Sidekiq and ActiveJob
+7. REST API
+8. OAuth
+9. AJAX with ujs and jQuery.
+10. Rspect and Capybara
+11. Capistrano
+10. Gems such as Devise, CanCanCan, Bootstrap and other
